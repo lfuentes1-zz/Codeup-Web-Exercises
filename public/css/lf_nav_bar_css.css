@@ -1,0 +1,42 @@
+body {
+	background-color: white;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+	float: left;
+}
+
+nav a {
+    display: block;
+    border-radius: 30px;
+    width: 90px;
+    background-color: pink;
+    border: 1px solid pink;
+    text-align: center;
+    padding: 5px 10px;	
+    font-weight: bold;
+}
+
+nav a:link {
+	text-decoration: none;
+	color: white;
+}
+
+nav a:visited {
+	color: white;
+}
+
+nav a:hover {
+	color:black;
+	background-color: red;
+}
+
+nav a:active {
+	color: white;
+}
