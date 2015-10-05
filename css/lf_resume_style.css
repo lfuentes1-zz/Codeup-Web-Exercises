@@ -1,0 +1,55 @@
+ul {
+	list-style-type: none;
+}
+
+body {
+	background-color: #B0B0B0;
+}
+
+main {
+	
+	font-family: "Arial", "Times New Roman";
+	background-color: #B0B0B0;
+
+}
+
+.left-side {
+	border: 1px solid black;
+	background-color: #FFFFFF;
+	position: fixed;
+	padding: 10px; 
+	/*!important;*/
+}
+
+.right-side {
+	border: 1px solid black;
+	padding: 25px 40px 25px 40px;
+	background-color: #FFFFFF;
+}
+
+.title, .left-side>h5 {
+	color: #B0B0B0;
+}
+
+.career_bullet_points {
+	list-style: disc;
+} 
+
+.text-bolder {
+	font-weight: bold;
+}
+
+.profile-pic {
+  padding: 20px 0;
+}
+
+@media (max-width: 992px) {
+  .profile-pic {
+    padding: 10px 0;
+  }
+}
+
+.profile-pic img {
+  width: 125px;
+  height: 150px;
+}
