@@ -34,3 +34,10 @@ function isOdd (myNumber)
 // todo: Call the function 'isOdd' passing the variable 'random' as a parameter.
 
 isOdd (random);
+
+
+// function randomNumber (min, max)
+// {
+// 	return Math.floor ((Math.random()* (max - min)) + min + 1);
+// }
+// Math.ranom returns a value from 0 to 1 but not including 1
