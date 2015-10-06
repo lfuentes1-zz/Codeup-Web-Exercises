@@ -14,8 +14,9 @@ do {
 } while (is_even != 0)
 console.log ("Random # to skip: " + save_random);
 
-for (i = 1; i <= 50; i++)
+for (i = 1; i <= 50; i = i + 2)
 {
+
 	// if (i === save_random)
 		// break;
 	console.log ("Odd number: " + i);
