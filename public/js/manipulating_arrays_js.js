@@ -2,7 +2,8 @@
 
 // todo:
 // Create an array holding the names of the planets of our solar system (in order, starting closest to the sun).
-var planets = [Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto];
+var planets = ["Mercury", "Venus", "Earth", "Mars", 
+				"Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"];
 
 // function for logging the planets array
 function logPlanets() {
