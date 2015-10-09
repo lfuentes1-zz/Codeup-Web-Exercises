@@ -83,5 +83,6 @@ do {
 
 })();
 
+//current bugs to fix
 //Sucessful # of attempts is reached at the wrong times, even when guessed correclty
 //6 attempts instead of 5
