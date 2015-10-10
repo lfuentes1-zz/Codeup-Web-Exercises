@@ -7,7 +7,7 @@
 	var global_random_number = 0;
 	var global_users_guess = 0;
 	var successful_guess = false;
-	var i_quit = false;
+	var quit = false;
 
 	function getRandomNumber()
 	{
@@ -26,7 +26,7 @@
 	{
 		var attempts = 1;
 		// 5. Keep guessing until you get it right or 5 attempts are reached
-		while ((users_guess != random_number) && (attempts <= 5))
+		while ((users_guess != random_number) && (attempts < 5))
 		{
 			// 3. Check the users guess with the random number
 			// 4. If they guess high or low let them know
@@ -79,10 +79,10 @@ do {
 
 	//would you like to play again
 	i_quit = playAgain ();
-} while (i_quit === true);
+} while (quit === true);
 
 })();
 
 //current bugs to fix
 //Sucessful # of attempts is reached at the wrong times, even when guessed correclty
-//6 attempts instead of 5
+// I suspenct the users guess is not being updated whent the user guesses correctly
