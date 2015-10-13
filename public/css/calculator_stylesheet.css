@@ -1,0 +1,28 @@
+.clear_btn {
+	padding: 15px 186px;
+}
+
+.add_btn {
+	padding: 15px 33px;
+}
+
+.num_btn {
+	padding: 15px 45px;
+}
+
+.dec_btn {
+	padding: 15px 46.5px;
+}
+
+.sub_btn, .mul_btn, .div_btn {
+	padding: 15px 34px;
+}
+
+.equal_btn {
+	padding: 15px 45px;
+}
+
+#left_operand, #right_operand, #operand {
+	padding: 15px 0px;
+	text-align: center;
+}

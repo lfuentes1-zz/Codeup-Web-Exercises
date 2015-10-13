@@ -2,10 +2,10 @@
 
 (function (){
     var detonationTimer = 5;
-    var interval = 1000;
+    var interval = 1000;  //1000 milliseconds = 1 second
 
     // TODO: This function needs to be called once every second
-    var intervalId = setInterval(function updateTimer()
+    function updateTimer()
     {
         if (detonationTimer == 0) {
             alert('EXTERMINATE!');
@@ -14,7 +14,7 @@
             document.getElementById('timer').innerHTML = detonationTimer;
         }
         detonationTimer--;
-    }, interval);
+    }
 
     // TODO: When this function runs, it needs to
     // cancel the interval/timeout for updateTimer()
@@ -22,6 +22,8 @@
     {
         clearInterval(intervalId);
     }
+
+    var intervalId = setInterval(updateTimer, interval);
 
     // Don't modify anything below this line!
     //

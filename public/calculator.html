@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<!-- <meta name="viewport" content="width=devide-width, initial-scale=1"> -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/calculator_stylesheet.css">
+	<title>Letty's Caculator</title>
+</head>
+
+<body>
+	<h2>Letty's Calculator</h2>
+	<div>
+		<input type="text" id="left_operand" size="20"readonly>
+		<input type="text" id="operand" size="10" readonly>
+		<input type="text" id="right_operand" size="20" readonly>
+	</div>
+	<div>
+		<!-- <button data-value="1" class="num_btn">1</button> -->
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="1">1</a>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="2">2</a>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="3">3</a>
+
+		<a class="btn btn-default operator_btn add_btn" href="#" role="button" data-value="+">+</a>
+
+	</div>
+	<div>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="4">4</a>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="5">5</a>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="6">6</a>
+		
+		<a class="btn btn-default operator_btn sub_btn" href="#" role="button" data-value="-">-</a>
+	</div>
+	<div>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="7">7</a>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="8">8</a>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="9">9</a>
+
+		<a class="btn btn-default operator_btn mul_btn" href="#" role="button" data-value="*">*</a>
+	</div>
+	<div>
+		<a class="btn btn-default num_btn" href="#" role="button" data-value="0">0</a>
+		<a class="btn btn-default num_btn dec_btn" href="#" role="button" data-value=".">.</a>
+
+		<a class="btn btn-default equal_btn" href="#" role="button" data-value="=" id="equals">=</a>
+
+		<a class="btn btn-default operator_btn div_btn" href="#" role="button" data-value="/">/</a>
+	</div>	
+	<div>
+		<a class="btn btn-default clear_btn" href="#" role="button" data-value="C" id="clear">C</a>
+	</div>
+
+
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/calculator.js"></script>
+
+</body>
+</html>
