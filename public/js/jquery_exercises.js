@@ -2,13 +2,17 @@ $(document).ready(function() {
 
 "use scrict";
 
-    $('#my_heading, p').css('border', '10px solid red');
-    $('*').css('font-size', '40px');
-	$('#my_heading').css('background-color', 'yellow');            
-	// var my_heading2 = $("#my_heading2").html();
-	// alert (my_heading);		
+    $("#my_heading").click(function() {
+    	$(this).css("background-color", "yellow");
+    });
+    
+    $("p").dblclick(function() {
+    	$(this).css("font-size", "18px");
+    });
 
+    $("#my_list li").hover(function() {
+    	$(this).css("color", "red");
+    }, function() {
+    	$(this).css("color", "white");
+    });
 });
-
-
-// h1, p, li
