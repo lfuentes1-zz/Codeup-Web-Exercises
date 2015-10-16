@@ -10,7 +10,7 @@ $(document).ready(function() {
     	$(this).css("font-size", "18px");
     });
 
-    $("#my_list li").hover(function() {
+    $("#my_list>li").hover(function() {
     	$(this).css("color", "red");
     }, function() {
     	$(this).css("color", "white");
