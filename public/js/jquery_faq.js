@@ -11,3 +11,4 @@ $("dt").click(function(event) {
 });
 
 
+//come up with another solution without next()
