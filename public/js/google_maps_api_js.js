@@ -3,11 +3,25 @@
 (function() {
 "use strict";
 
-	// Include code from previous example
+	// Set our map options
+    var mapOptions = {
+        // Set the zoom level
+        zoom: 21,
+
+        // This sets the center of the map at San Antonio, TX
+        center: {
+            lat:  29.42412,
+            lng: -98.49363
+            // 29.60950, -98.51055 (Panera Bread on Stone Oak)
+        }
+    };
+
+    // Render the map
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
 	// Set our address to geocode
-	var address = "300 Alamo Plaza, San Antonio, TX, 78205";
-
+	var address = "1203 N Loop 1604 W, San Antonio, TX, 78258";
+	
 	// Init geocoder object
 	var geocoder = new google.maps.Geocoder();
 
@@ -25,22 +39,5 @@
 	       alert("Geocoding was not successful - STATUS: " + status);
 	   }
 	});
-
-	// Set our map options
-	var mapOptions = {	//maps constructor
-	    // Set the zoom level
-	    zoom: 18,
-
-	    // This sets the center of the map at our location when the maps renders
-	    center: {
-	        lat:  29.4284595,
-	        lng: -98.492433
-	    }
-	};
-
-	// Render the map
-	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);	
-
-
 
 })();
