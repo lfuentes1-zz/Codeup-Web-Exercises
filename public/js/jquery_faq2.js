@@ -2,14 +2,7 @@ $(document).ready(function() {
 
 "use scrict";
 
-$("dd").addClass("invisible");
-    
-$("dt").click(function(event) {
-    // event.preventDefault();
-        $(this).next().toggleClass("invisible");
-    });
-
-
+//Solution to 4.3.2 (#3)
 $('ul').each(function(index) {
     $(this).children().first().css("font-weight", "bold");
  });
@@ -19,10 +12,10 @@ $('ul').each(function(index) {
 //$("li:nth-child(3)").css("font-weight", "bold")
 //$(this).children("li:first").css("font-weight", "bold");
 
-//the below #4 does not work
-$("h3").click(function(event) {
+//Solution to 4.3.2 (#4)
+$("li").click(function(event) {
     // event.preventDefault();
-        $(this).children().toggleClass("invisible");
+        $(this).parent().toggleClass("invisible");
     });
 
 
