@@ -1,0 +1,102 @@
+/*div {
+	width:  
+	height:
+	padding:
+	border
+	color;
+}*/
+
+#container
+{
+	border: 1px solid black;
+	padding: 50px 50px 50px 50px;
+	width: 350px;
+	height: 200px;
+	margin: 0px;
+	position: relative;
+}
+
+.red{
+	background-color: red;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	padding: 10px;
+	color: white;
+	float: left;
+	margin: 0px 50px 50px 0px;
+}
+
+.images1{
+	position:absolute;
+	top: 20px;
+	left: 100px;
+}
+.images2{
+	position:absolute;
+	top: 25px;
+}
+
+/*div>img {*/
+	/*position: absolute;*/
+	/*top: 15px;*/
+	/*left: 1px; */
+	/*right: 50px;*/
+/*}*/
+
+.orange{
+	background-color: orange;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	padding: 10px;
+	float: left;
+	margin: 0px 50px 50px 0px;
+	color: white;
+}
+
+.yellow{
+	background-color: yellow;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	padding: 10px;
+	float: left;
+	margin: 0px 0px 50px 0px;
+	color: white;
+}
+
+.green{
+	background-color: green;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	padding: 10px;
+	clear: both;
+	margin: 0px 50px 0px 0px;
+	color: white;
+}
+
+.blue{
+	background-color: blue;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	padding: 10px;
+	color: white;
+	position: relative;
+	bottom: 72px;
+	left: 122px	
+}
+
+.purple{
+	background-color: purple;
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	padding: 10px;
+	color: white;
+	position: relative;
+	bottom: 144px;
+	left: 244px;
+}

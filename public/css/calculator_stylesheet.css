@@ -1,0 +1,33 @@
+.clear_btn {
+	padding: 15px 186px;
+	background-color: #B0B0B0;
+}
+
+.add_btn {
+	padding: 15px 33px;
+	border-color: #FF0000;
+}
+
+.num_btn {
+	padding: 15px 45px;
+}
+
+.dec_btn {
+	padding: 15px 46.5px;
+}
+
+.sub_btn, .mul_btn, .div_btn {
+	padding: 15px 34px;
+	border-color: #FF0000;
+}
+
+.equal_btn {
+	padding: 15px 45px;
+	border-color: #FF0000;
+}
+
+#left_operand, #right_operand, #operand {
+	padding: 15px 0px;
+	text-align: center;
+	border-color: #009900;
+}

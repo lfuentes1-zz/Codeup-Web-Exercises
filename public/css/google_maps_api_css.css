@@ -1,0 +1,14 @@
+/*css stylesheet*/
+
+#map-canvas {
+            width: 770px;
+            height: 481px;
+        }
+
+.center {
+	margin: auto;
+}
+
+h1 {
+	text-align: center;
+}

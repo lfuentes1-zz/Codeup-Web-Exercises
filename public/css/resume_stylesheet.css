@@ -1,0 +1,107 @@
+body {
+	/*background-color: #B0B0B0;*/
+	background-image: url ("img/pink_rice.png");
+
+}
+
+.left-side {
+	/*border: 5px solid grey;*/
+	/*background-color: white;*/
+	position: fixed;
+	/*background-image: url ("img/pink_rice.png");*/
+
+}
+
+.left-top {
+	/*border: 5px solid brown;*/
+	/*background-image: url ("img/pink_rice.png");*/
+	/*background-color: #cccccc;*/
+
+}
+
+.left-bottom {
+	/*border: 5px solid pink;*/
+	padding-top: 20px;
+	padding-bottom: 0px; 
+	padding-left: 15px;
+	padding-right: 15px;
+	/*background-image: url ("img/pink_rice.png");*/
+	/*background-color: #cccccc;*/
+
+}
+
+.right-side {
+	/*border: 5px solid grey;*/
+	/*background-color: white;*/
+}
+.right-top {
+	/*border: 2px solid pink;*/
+	position: fixed;
+	background-color: white;
+	padding: 15px 150px;
+	margin-top: -10px;
+}
+
+.right-bottom {
+	padding: 5px 30px 10px 30px;
+	/*border: 5px solid yellow;*/
+	margin-top: 40px;
+}
+
+.contains-all {
+	/*border: 5px solid orange;*/
+
+}
+
+.container {
+	/*border: 5px solid orange;*/
+}
+
+.text-bolder {
+	font-weight: bold;
+}
+
+.title {
+	color: #B0B0B0;
+}
+
+.career_bullet_points {
+	/*Intentionally left empty*/
+}
+
+.make_smaller {
+	/*Intentionall left empty*/
+}
+
+.profile-pic-container {
+	/*border: 5px solid black;*/
+	width: 200px;
+	height: 250px;
+
+}
+
+.profile-pic
+{
+	padding-top: 25px;
+}
+
+.button-color {
+	background-color: #B0B0B0;
+	border:	black;
+}
+
+.right-project, .project-list {
+	/*border: 5px solid grey;*/
+	padding: 15px 15px;
+}
+
+.right-top-empty {
+	/*Intentionally left blank*/
+}
+
+.row-offset {
+	visibility: hidden;
+	position: relative;
+	top: -70px;
+	display: block;
+}
