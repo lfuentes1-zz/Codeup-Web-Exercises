@@ -1,0 +1,16 @@
+html, body {
+        margin: 0px;
+        padding: 0;
+    }
+
+    #btn-animate {
+        margin: 15px;
+    }
+
+    #animate-box {
+        background-color: #000033;
+        height: 250px;
+        margin: 15px;
+        position: relative;
+        width: 250px;
+    }
