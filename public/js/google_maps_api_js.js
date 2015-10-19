@@ -50,7 +50,7 @@
 		position: fav_res,
 		map: map,
 		animation: google.maps.Animation.DROP,
-		icon: image,
+		// icon: image,
 		title: "Panera Bread"
 	});
 
@@ -58,12 +58,13 @@
 	// var contentString = document.getElementById("res-info");
 	var contentString = '<div id="res-info">' +
 		'<h3 id="f_heading">Panera Bakery-Cafe</h3>' +
+		'<img src="/img/panerabrea.png" alt="Panera Bread">' +
 		'<p> Panera Bread is a Bakery-Cafe.  They serve many delicious meals including ' +
     	'but not limited soups, sandwiches, and salads.  My favorite thing about' +
     	'Panera Bread is the fact that they use little to no processed deli meats!</p>' +
-    	'<a href="https://www.panerabread.com</a>' +
+    	'<a href="https://www.panerabread.com" target="_blank">' +
+    	'https://www.panerabread.com</a>' +
     	'</div>';
-
 
 	//Create a new infoWindow object with content
 	var infowindow = new google.maps.InfoWindow({
