@@ -1,0 +1,15 @@
+body {
+	background-color: #FF33CC;
+}
+
+h1 {
+	text-align: center;
+}
+
+h4 {
+	text-align: center;
+}
+
+#blogEntry {
+	border: 1px solid black;
+}
