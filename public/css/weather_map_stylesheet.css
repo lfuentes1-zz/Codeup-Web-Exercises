@@ -2,17 +2,19 @@ body {
 	background-color: #9CF;
 }
 
-h1 {
+h1, h3, th, td {
 	text-align: center;	
 }
 
-div {
-    width: 300px;
-    padding: 25px;
-    border: 5px solid navy;
-    margin: 0 auto;
-}
+#map-canvas {
+    width: 770px;
+    height: 481px;
+    margin: auto;
+}   
 
-#sanAntonioWeather {
-	border: 1px solid grey;
+form
+{
+	/*margin: auto;*/
+	margin-left: auto;
+	margin-right: auto;
 }
