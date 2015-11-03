@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>eSales Aid</title>
+		<!-- Device width setting telling the iPad to render all HTML and graphics at 1-to-1 ratio which disables the pinching capability  -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<!-- Setting web-app-capable which tell iPad that we are building a web application.  When someone saves to the home screen, they won't be getting
+		a bookmark but an instance of mobile safari and save as web app -->
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<!-- Setting the status bar style to black, default is grey -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- Precomposed tells the iPad not to add the reflection to the iPad -->
+		<link type="text/css" rel="apple-touch-icon-precomposed" href="assets/images/template/icon.png?v=1" />
+		<!-- CSS statements with media queries inside for the start-up image with landscape -->
+		<link type="text/css" rel="apple-touch-startup-image" href="assets/images/template/startup_landscape.jpg?v=1" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
+		<!-- Same as above, exept for portrait -->
+		<link type="text/css" rel="apple-touch-startup-image" href="assets/images/template/startup_portrait.jpg?v=1" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
+		<!-- The query string variable ?v=1 tricks the iPad into thinking that css and js files are dynamic and it won't cache them -->
+		<link rel="stylesheet" type="text/css" href="assets/includes/esales_aid.css?v=1" />
+		<script type="text/javascript" src="assets/includes/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="assets/includes/Iscroll4/iscroll.js"></script>
+		<script type="text/javascript" src="assets/includes/esales_aid.js?v=1"></script>
+	</head>
+	<body>
+		<div class="page">
+			<footer></footer>
+			<article>
+				<div class="content_container">
+					<div class="content_loading_container"></div>
+				</div>
+			</article>
+			<header></header>
+			<nav></nav>	
+		</div>
+	</body>
+</html>
