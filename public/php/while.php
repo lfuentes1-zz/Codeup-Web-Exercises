@@ -7,4 +7,14 @@ while ($test <= 15) {
 	$test++;
 }
 
+$test = 5;
+while ($test <= 15) {
+	$even = $test % 2;
+	if ($even == 0)
+	{
+		echo "$test" . PHP_EOL;
+	}
+	$test++;
+}
+
 ?>
