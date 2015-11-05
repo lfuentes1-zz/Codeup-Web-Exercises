@@ -1,7 +1,7 @@
-#Codeup Web Examples
-##_by_
-##_Letty Fuentes_
-###This is my personal repository of exercises I've completed during my amazing time at Codeup!
+-> #Codeup Web Examples <-
+-> ###_by_ <-
+-> ###_Letty Fuentes_ <-
+####This is my personal repository of exercises I've completed during my amazing time at Codeup!
 ####The structure of this repository is as follows:
 
 * __Folders__
@@ -14,3 +14,5 @@
 	* php - PHP projects
 * __HTML__ 
 	* All HTML files requiring the files in the above folders
+
+Thank you for looking :smile:
