@@ -23,15 +23,25 @@ $books = array(
     )
 );
 
-foreach ($books as $book => $book_details) {
+foreach ($books as $title => $book) {
     //The following foreach loop is not necessary
-    // foreach ($book_details as $key => $value) {
+    // foreach ($book as $key => $value) {
     // }
-    if ($book_details['published'] > 1950) {
+    if ($book['published'] > 1950) {
             echo "Published before 1950!" . PHP_EOL;
     }
-    echo "Book Title: {$book}" . PHP_EOL;
-    echo "Year Published: {$book_details['published']}" . PHP_EOL;
-    echo "Number of Pages: {$book_details['pages']}" . PHP_EOL;
-    echo "Author: {$book_details['author']}" . PHP_EOL . PHP_EOL;;
+    echo "Book Title: {$title}" . PHP_EOL;
+    echo "Year Published: {$book['published']}" . PHP_EOL;
+    echo "Number of Pages: {$book['pages']}" . PHP_EOL;
+    echo "Author: {$book['author']}" . PHP_EOL . PHP_EOL;;
+}
+
+
+//Another solution
+foreach ($books as $title => $book) {
+    echo "'{$title}':\n";
+    foreach ($book as $key => $data) {
+        echo "{$key} - {$data}\n";
+    }
+    echo PHP_EOL;
 }
