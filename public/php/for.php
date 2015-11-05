@@ -1,23 +1,28 @@
 <?php
 
-// do {
+do {
 	fwrite(STDOUT, "Enter a starting number: ");
-	$starting_num = (int)trim(fgets(STDIN));
-	if (!is_numeric($starting_num))
-	{	
-		die ("Enter a numeric value!");
+	$starting_num = trim(fgets(STDIN));
+	if (!is_numeric($starting_num)) {	
+		fwrite (STDOUT, "Enter a numeric value!" . PHP_EOL);
 	}
+} while (!is_numeric($starting_num));
+
+do {	
 	fwrite(STDOUT, "Enter an ending number: ");
-	$ending_num = (int)trim(fgets(STDIN));
-	if (!is_numeric($ending_num))
-	{	
-		die ("Enter a numeric value!");
+	$ending_num = trim(fgets(STDIN));
+	if (!is_numeric($ending_num)) {	
+		fwrite (STDOUT, "Enter a numeric value!" . PHP_EOL);
 	}
-// } while ();
+} while (!is_numeric($ending_num));
 
-
-fwrite(STDOUT, "Enter your incrementor: ");
-$incrementor = (int)trim(fgets(STDIN));
+do {
+	fwrite(STDOUT, "Enter your incrementor: ");
+	$incrementor = trim(fgets(STDIN));
+	if (!is_numeric($incrementor)) {
+		fwrite (STDOUT, "Enter a numeric value!" . PHP_EOL);
+	}
+} while (!is_numeric($incrementor));
 
 if ($incrementor == 0) {
 	$incrementor = 1;
