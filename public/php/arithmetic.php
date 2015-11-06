@@ -4,6 +4,8 @@ $sum = 0;
 $subtraction = 0;
 $multiplication = 0;
 $division = 0;
+$input1 = 15;
+$input2 = 5;
  
 function add($a, $b)
 {
@@ -31,13 +33,13 @@ function modulus($a, $b)
 }
 
 // Add code to test your functions here
-$sum = add (10, 5);
+$sum = add ($input1, $input2);
 echo "The sum is {$sum}" . PHP_EOL;
-$subtraction = subtract (15, 5);
+$subtraction = subtract ($input1, $input2);
 echo "The subtraction is {$subtraction}" . PHP_EOL;
-$multiplication = multiply (3, 3);
+$multiplication = multiply ($input1, $input2);
 echo "The multiplication is {$multiplication}" . PHP_EOL;
-$division = divide (15, 5);
+$division = divide ($input1, $input2);
 echo "The division is {$division}" . PHP_EOL;
-$remainder = modulus (10, 2);
+$remainder = modulus ($input1, $input2);
 echo "The remainder is {$remainder}" . PHP_EOL;
