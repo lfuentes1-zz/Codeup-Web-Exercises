@@ -7,12 +7,16 @@ $division = 0;
 $input1 = 15;
 $input2 = c;
  
+function errorMessages ($a_value, $b_value) {
+	return "ERROR: {a: {$a_value}} and {b: {$b_value}} arguments must be numbers" . PHP_EOL;
+}
+
 function add($a, $b)
 {
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a + $b;	
 	} else {
-		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
+		return errorMessages($a, $b);
 	} 
 }
 
@@ -21,7 +25,7 @@ function subtract($a, $b)
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a - $b;	
 	} else {
-		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
+		return errorMessages($a, $b);
 	}
 }
 
@@ -30,7 +34,7 @@ function multiply($a, $b)
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a * $b;	
 	} else {
-		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
+		return errorMessages($a, $b);
 	}
 }
 
@@ -45,8 +49,9 @@ function forMultiply ($a, $b)
 		}
 		return $sum;
 	} else {
-		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
+		return errorMessages($a, $b);
 	}
+	//can also re-use the add function inside the for loop to re-use code
 }
 
 function divide($a, $b)
@@ -58,7 +63,7 @@ function divide($a, $b)
 			return $a / $b;		
 		}
 	} else {
-		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
+		return errorMessages($a, $b);
 	} 
 }
 
@@ -67,7 +72,7 @@ function modulus($a, $b)
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a % $b;	
 	} else {
-		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
+		return errorMessages($a, $b);
 	}
 }
 
