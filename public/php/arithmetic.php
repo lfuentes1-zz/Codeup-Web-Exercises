@@ -5,14 +5,14 @@ $subtraction = 0;
 $multiplication = 0;
 $division = 0;
 $input1 = 15;
-$input2 = 5;
+$input2 = c;
  
 function add($a, $b)
 {
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a + $b;	
 	} else {
-		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
 	} 
 }
 
@@ -21,7 +21,7 @@ function subtract($a, $b)
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a - $b;	
 	} else {
-		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
 	}
 }
 
@@ -30,7 +30,7 @@ function multiply($a, $b)
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a * $b;	
 	} else {
-		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
 	}
 }
 
@@ -45,7 +45,7 @@ function forMultiply ($a, $b)
 		}
 		return $sum;
 	} else {
-		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
 	}
 }
 
@@ -58,7 +58,7 @@ function divide($a, $b)
 			return $a / $b;		
 		}
 	} else {
-		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
 	} 
 }
 
@@ -67,7 +67,7 @@ function modulus($a, $b)
 	if (is_numeric($a) && is_numeric($b)) {
 		return $a % $b;	
 	} else {
-		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+		return "ERROR: {a: {$a}} and {b: {$b}} arguments must be numbers" . PHP_EOL;
 	}
 }
 
