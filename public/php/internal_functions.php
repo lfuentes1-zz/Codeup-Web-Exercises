@@ -3,7 +3,16 @@
 // TODO: Create your inspect() function here
 function inspect($parameter) {
 
-	// echo "The " . gettype($parameter) . " is {$parameter}" . PHP_EOL;
+	
+	} elseif (gettype($parameter) = 'array') {
+		return 'The value is an array';
+	} elseif (gettype($parameter) = 'array') {
+		return 'The value is an empty array';
+	}
+
+	//empty string
+	// // echo "The " . gettype($parameter) . " is {$parameter}" . PHP_EOL;
+	//if statement as a one liner
 
 	switch (gettype($parameter)) {
 		case 'string':
@@ -13,7 +22,12 @@ function inspect($parameter) {
 			return "The integer is {$parameter}";
 			break;
 		case 'boolean':
-			return "The boolean is {$parameter}";
+			if (gettype($parameter) == 1) {
+				return "The boolean is TRUE";	good 
+			}
+			else {
+				return "The boolean is FALSE";	good
+			}
 			break;
 		case 'double':
 			return "The double is {$parameter}";
@@ -22,10 +36,10 @@ function inspect($parameter) {
 			return "The integer is {$parameter}";
 			break;
 		case 'array':
-			return "The array is {$parameter}";
+			return "The array is {$parameter}"; 
 			break;
 		case 'NULL':
-			return "The value is {$parameter}";
+			return "The value is NULL"; good
 			break;
 		default:
 			return "Unknown value or type";
