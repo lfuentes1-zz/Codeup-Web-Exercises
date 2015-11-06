@@ -37,7 +37,11 @@ function multiply($a, $b)
 function divide($a, $b)
 {
 	if (is_numeric($a) && is_numeric($b)) {
-		return $a / $b;	
+		if ($a / $b == 0) {
+			return "ERROR:  Division by zero." . PHP_EOL;
+		} else {
+			return $a / $b;		
+		}
 	} else {
 		return "ERROR: Both arguments must be numbers" . PHP_EOL;
 	} 
