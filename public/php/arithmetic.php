@@ -9,27 +9,47 @@ $input2 = 5;
  
 function add($a, $b)
 {
-    return $a + $b;
+	if (is_numeric($a) && is_numeric($b)) {
+		return $a + $b;	
+	} else {
+		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+	} 
 }
 
 function subtract($a, $b)
 {
-	return $a - $b;
+	if (is_numeric($a) && is_numeric($b)) {
+		return $a - $b;	
+	} else {
+		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+	}
 }
 
 function multiply($a, $b)
 {
-	return $a * $b;
+	if (is_numeric($a) && is_numeric($b)) {
+		return $a * $b;	
+	} else {
+		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+	}
 }
 
 function divide($a, $b)
 {
-	return $a / $b;
+	if (is_numeric($a) && is_numeric($b)) {
+		return $a / $b;	
+	} else {
+		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+	} 
 }
 
 function modulus($a, $b)
 {
-	return $a % $b;
+	if (is_numeric($a) && is_numeric($b)) {
+		return $a % $b;	
+	} else {
+		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+	}
 }
 
 // Add code to test your functions here
