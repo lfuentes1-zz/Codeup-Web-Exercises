@@ -3,30 +3,32 @@
 // TODO: Create your inspect() function here
 function inspect($parameter) {
 
+	// echo "The " . gettype($parameter) . " is {$parameter}" . PHP_EOL;
+
 	switch (gettype($parameter)) {
 		case 'string':
-			return "The string is {$parameter}." . PHP_EOL;
+			return "The string is {$parameter}";
 			break;
 		case 'integer':
-			return "The integer is {$parameter}." . PHP_EOL;
+			return "The integer is {$parameter}";
 			break;
 		case 'boolean':
-			return "The boolean is {$parameter}." . PHP_EOL;
+			return "The boolean is {$parameter}";
 			break;
 		case 'double':
-			return "The double is {$parameter}." . PHP_EOL;
+			return "The double is {$parameter}";
 			break;
 		case 'integer':
-			return "The integer is {$parameter}." . PHP_EOL;
+			return "The integer is {$parameter}";
 			break;
 		case 'array':
-			return "The array is {$parameter}." . PHP_EOL;
+			return "The array is {$parameter}";
 			break;
 		case 'NULL':
-			return "The value is {$parameter}." . PHP_EOL;
+			return "The value is {$parameter}";
 			break;
 		default:
-			return "Unknown value or type." . PHP_EOL;
+			return "Unknown value or type";
 			break;
 	}
 }
@@ -45,24 +47,24 @@ $null = NULL;
 
 // TODO: After each echo statement, use inspect() to output the variable's type and its value
 
-echo 'Inspecting $num1:' . PHP_EOL;
+echo 'Inspecting $num1: ' . inspect($num1) . PHP_EOL;
 
-echo 'Inspecting $num2:' . PHP_EOL;
+echo 'Inspecting $num2: ' . inspect($num2) . PHP_EOL;
 
-echo 'Inspecting $num3:' . PHP_EOL;
+echo 'Inspecting $num3: ' . inspect($num3) . PHP_EOL;
 
-echo 'Inspecting $num4:' . PHP_EOL;
+echo 'Inspecting $num4: ' . inspect($num4) . PHP_EOL;
 
-echo 'Inspecting $null:' . PHP_EOL;
+echo 'Inspecting $null: ' . inspect($null) . PHP_EOL;
 
-echo 'Inspecting $bool1' . PHP_EOL;
+echo 'Inspecting $bool1: ' . inspect($bool1) . PHP_EOL;
 
-echo 'Inspecting $bool2' . PHP_EOL;
+echo 'Inspecting $bool2: ' . inspect($bool2) . PHP_EOL;
 
-echo 'Inspecting $string1' . PHP_EOL;
+echo 'Inspecting $string1: ' . inspect($string1) . PHP_EOL;
 
-echo 'Inspecting $string2' . PHP_EOL;
+echo 'Inspecting $string2: ' . inspect($string2) . PHP_EOL;
 
-echo 'Inspecting $array1' . PHP_EOL;
+echo 'Inspecting $array1: ' . inspect($array1) . PHP_EOL;
 
-echo 'Inspecting $array2' . PHP_EOL;
+echo 'Inspecting $array2: ' . inspect($array2) . PHP_EOL;
