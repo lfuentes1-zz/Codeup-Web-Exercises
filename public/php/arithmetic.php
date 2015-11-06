@@ -34,6 +34,21 @@ function multiply($a, $b)
 	}
 }
 
+function forMultiply ($a, $b)
+{
+	if (is_numeric($a) && (is_numeric($b)))
+	{
+		$sum = 0;
+		for ($i = 1; $i <= $b; $i++)
+		{	
+			$sum = $sum + $a;
+		}
+		return $sum;
+	} else {
+		return "ERROR: Both arguments must be numbers" . PHP_EOL;
+	}
+}
+
 function divide($a, $b)
 {
 	if (is_numeric($a) && is_numeric($b)) {
@@ -63,6 +78,8 @@ $subtraction = subtract ($input1, $input2);
 echo "The subtraction is {$subtraction}" . PHP_EOL;
 $multiplication = multiply ($input1, $input2);
 echo "The multiplication is {$multiplication}" . PHP_EOL;
+$multiplication = forMultiply ($input1, $input2);
+echo "The multiplication is {$multiplication} using the for loop" . PHP_EOL;
 $division = divide ($input1, $input2);
 echo "The division is {$division}" . PHP_EOL;
 $remainder = modulus ($input1, $input2);
