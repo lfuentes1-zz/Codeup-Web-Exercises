@@ -25,6 +25,11 @@ function divide($a, $b)
 	return $a / $b;
 }
 
+function modulus($a, $b)
+{
+	return $a % $b;
+}
+
 // Add code to test your functions here
 $sum = add (10, 5);
 echo "The sum is {$sum}" . PHP_EOL;
@@ -34,3 +39,5 @@ $multiplication = multiply (3, 3);
 echo "The multiplication is {$multiplication}" . PHP_EOL;
 $division = divide (15, 5);
 echo "The division is {$division}" . PHP_EOL;
+$remainder = modulus (10, 2);
+echo "The remainder is {$remainder}" . PHP_EOL;
