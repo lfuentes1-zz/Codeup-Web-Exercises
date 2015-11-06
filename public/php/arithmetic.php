@@ -5,7 +5,7 @@ $subtraction = 0;
 $multiplication = 0;
 $division = 0;
 $input1 = 15;
-$input2 = c;
+$input2 = 5;
  
 function errorMessages ($a_value, $b_value) {
 	return "ERROR: {a: {$a_value}} and {b: {$b_value}} arguments must be numbers" . PHP_EOL;
