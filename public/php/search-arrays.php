@@ -6,20 +6,19 @@ $compare = ['Tina', 'Dean', 'Mel', 'Amy', 'Michael'];
 
 
 // Create a function that returns TRUE or FALSE if an array value is found.
-$query = 'Tina';
-$query2 = 'Bob';
+function queryArray ($search_item, $array_name) {
+	$result = array_search($search_item, $array_name);	
+	return ($search_item == $result) ? TRUE : FALSE;
+}
 
-$result = array_search($query, $names);
-$result2 = array_search($query2, $names);
-
-if ($result == $query) {
-    echo "Result of first search: " . $names[$result] . PHP_EOL;
+if (queryArray ('Tina', $names)) {
+    echo "Result of first search: Found" . PHP_EOL;
 } else {
 	echo "Result of first search: Non-Existent" . PHP_EOL;
 }
 
-if ($result2 == $query2) {
-    echo "Result of second search: " . $names[$result2] . PHP_EOL;
+if (queryArray ('Bob', $names)) {
+    echo "Result of first search: Found." . PHP_EOL;
 } else {
-	echo "Result of second search: Non-Existent" . PHP_EOL;
+	echo "Result of first search: Non-Existent" . PHP_EOL;
 }
