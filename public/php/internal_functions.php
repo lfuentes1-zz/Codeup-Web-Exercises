@@ -1,52 +1,25 @@
 <?php
 
-// TODO: Create your inspect() function here
 function inspect($parameter) {
-
-	
-	} elseif (gettype($parameter) = 'array') {
-		return 'The value is an array';
-	} elseif (gettype($parameter) = 'array') {
-		return 'The value is an empty array';
-	}
-
-	//empty string
-	// // echo "The " . gettype($parameter) . " is {$parameter}" . PHP_EOL;
-	//if statement as a one liner
-
 	switch (gettype($parameter)) {
-		case 'string':
-			return "The string is {$parameter}";
-			break;
-		case 'integer':
-			return "The integer is {$parameter}";
+		case 'string': 
+			return ($parameter == "") ? "The string is empty" : "The string is {$parameter}";	
 			break;
 		case 'boolean':
-			if (gettype($parameter) == 1) {
-				return "The boolean is TRUE";	good 
-			}
-			else {
-				return "The boolean is FALSE";	good
-			}
-			break;
-		case 'double':
-			return "The double is {$parameter}";
-			break;
-		case 'integer':
-			return "The integer is {$parameter}";
+			return ($parameter == 1) ? "The boolean is TRUE" : "The boolean is FALSE";	
 			break;
 		case 'array':
-			return "The array is {$parameter}"; 
+			return ($parameter == []) ? "The value is an array" : "The value is an empty array"; 
 			break;
 		case 'NULL':
-			return "The value is NULL"; good
+			return "The value is NULL"; 
 			break;
-		default:
-			return "Unknown value or type";
+		default: //Case for integer, double, non-empty string
+			return "The " . gettype($parameter) . " is {$parameter}";
 			break;
 	}
 }
-// Do not mofify these variables!
+
 $string1 = "I'm a little teapot";
 $string2 = '';
 $array1 = [];
@@ -58,8 +31,6 @@ $num2 = 0.0;
 $num3 = 12;
 $num4 = 14.4;
 $null = NULL;
-
-// TODO: After each echo statement, use inspect() to output the variable's type and its value
 
 echo 'Inspecting $num1: ' . inspect($num1) . PHP_EOL;
 
