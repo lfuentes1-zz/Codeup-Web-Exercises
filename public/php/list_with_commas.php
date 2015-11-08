@@ -6,7 +6,8 @@ $famousFakePhysicists = '';
 $sorting = true;
 
 // Converts array into list n1, n2, ..., and n3
-function humanizedList($physicistsArray, $sorting){
+//Default to alphabetical sorting = false
+function humanizedList($physicistsArray, $sorting = false){
 	$famousFakePhysicists = '';
 
 	//Update your code to list the physicists by first name, in alphabetical order.
@@ -25,11 +26,14 @@ function humanizedList($physicistsArray, $sorting){
 //First, convert the string into an array, broken at the comman(space) delimiter.
 $physicistsArray = explode(', ', $physicistsString);
 
-//Humanize that list
 //The second argument to make alphabetical sorting optional. TRUE = SORT and FALSE = DON'T SORT
 $famousFakePhysicists = humanizedList($physicistsArray, $sorting);
-
 echo "Some of the most famous fictional theoretical physicists are {$famousFakePhysicists}." . PHP_EOL;
+
+//The second argument to make alphabetical sorting optional. Default to false if no 2nd argument passed
+$famousFakePhysicists = humanizedList($physicistsArray);
+echo "Some of the most famous fictional theoretical physicists are {$famousFakePhysicists}." . PHP_EOL;
+
 
 
 
