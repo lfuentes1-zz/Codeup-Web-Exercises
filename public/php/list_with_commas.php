@@ -17,6 +17,8 @@ function humanizedList($physicistsArray, $sorting = false){
 	
 	$lastItem = "and " . array_pop($physicistsArray);
 	array_push($physicistsArray, $lastItem);
+	//The next line would do the same as array_push; but, array_push is more common
+	// $physicistsArray[] = $lastItem;
 	$famousFakePhysicists = implode(', ', $physicistsArray);
 
 	return $famousFakePhysicists;
