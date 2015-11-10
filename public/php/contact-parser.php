@@ -1,28 +1,33 @@
 <?php
 
-function parseContacts($filename)
-{
-	$filename = '../txt/contacts.txt';
-    $contacts = array();
-    $contentsArray = array();
+function formatPhoneNumber ($phoneNumber) {
+	$phoneNumber = substr($phoneNumber, 0, 3) . '-' . 
+					substr($phoneNumber, 3, 3) . '-' .
+					substr($phoneNumber, 6, 4);
 
-    $handle = fopen($filename, 'r');
-	$contents = fread($handle, filesize($filename));
-	$contentsArray = explode("\n", $contents);
-	// var_dump($contentsArray);
-	$index = 0;
-	foreach ($contentsArray as $person) {
-		$contactsArray = explode('|', $person);
-
-
-		$contactsArray[1] = substr($contactsArray[1], 0, 3) . '-' . 
-							substr($contactsArray[1], 3, 3) . '-' .
-							substr($contactsArray[1], 6, 4);
-		$contentsArray[$index++] = $contactsArray;
-		// var_dump($contactsArray);
-	}
-	fclose($handle);
-    return $contentsArray;
+	return $phoneNumber;
 }
 
-var_dump(parseContacts('contacts.txt'));
+function parseContacts($filename)
+{
+    $allContacts = array();
+
+    $handle = fopen($filename, 'r');
+	$fileContents = fread($handle, filesize($filename));
+	$fileContents = trim($fileContents);
+
+	$contentsArray = explode("\n", $fileContents);
+
+	foreach ($contentsArray as $person) {
+		$peopleArray = explode('|', $person);
+		$allContacts[] = array(
+			'name' => $peopleArray[0],
+			'number' => formatPhoneNumber($peopleArray[1])
+		);
+	}	
+	
+	fclose($handle);
+    return $allContacts;
+}
+
+var_dump(parseContacts('../data/contacts.txt'));
