@@ -44,18 +44,28 @@ function cmp($a, $b) {
 }
 
 function printReport ($employeeArray) {
-	uasort($employeeArray, 'cmp');
-
-	echo "Monthly Sales Report" . PHP_EOL . PHP_EOL;
+	echo "MONTHLY SALES REPORT" . PHP_EOL . PHP_EOL;
 	echo "Total Number of Employees: " . employeeCount($employeeArray) . PHP_EOL;
 	echo "Total Number of Units Sold: " . unitsSold($employeeArray) . PHP_EOL;
 	echo "Avg. Units Sold Per Employee: " . employeeAvgSoldUnits($employeeArray) . PHP_EOL . PHP_EOL;
-	echo "Units     |          Full Name                 |     Employee Number" . PHP_EOL;	
+
+	//Report Heading
+	printf("% -11s", "Units");
+	printf("% -41s", "Full Name");
+	printf("% -15s", "Employee Number" . PHP_EOL);
+	printf("%'-68s", "-" . PHP_EOL);
+
+	uasort($employeeArray, 'cmp');
+
 	foreach ($employeeArray as $person) {
-		echo $person['salesUnits'] . '        |     ' . 
-			 $person['firstName'] . ' ' . 
-			 $person['lastName'] . '          |     ' .
-			 $person['employeeNum'] . PHP_EOL;
+		printf ("% -10s ", $person['salesUnits']);
+
+		$fullName = $person['firstName'] . ' ' . $person['lastName'];
+		printf ("% -40s ", $fullName);
+		
+		printf ("% -10s", $person['employeeNum']);
+
+		echo PHP_EOL;
 	}
 }
 
