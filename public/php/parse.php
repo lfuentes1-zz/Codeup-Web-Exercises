@@ -8,10 +8,55 @@
 // * Units   |     Full Name       |   Employee Number
 // * 5             Bob Boberson        2
 
-function employeeCount ()
+function employeeCount ($employeeArray)
 {
 	//total number of employees
 	$numberEmployees = sizeof($employeeArray);
+
+	return $numberEmployees;
+}
+
+function unitsSold ($employeeArray)
+{
+	// - total number of units sold
+	$unitsSoldCount = 0;
+	foreach ($employeeArray as $person) {
+		$unitsSoldCount = $unitsSoldCount + $person['salesUnits'];
+	}
+	return $unitsSoldCount;
+}
+
+function employeeAvgSoldUnits ($employeeArray)
+{
+	// - avg units sold per employee
+	$unitsSoldCount = unitsSold ($employeeArray);
+	$numberEmployees = employeeCount($employeeArray);
+
+	return ($unitsSoldCount / $numberEmployees);
+}
+
+// Comparison function
+function cmp($a, $b) {
+    if ($a['salesUnits'] == $b['salesUnits']) {
+        return 0;
+    }
+    return ($a['salesUnits'] > $b['salesUnits']) ? -1 : 1;
+}
+
+function printReport ($employeeArray) {
+	uasort($employeeArray, 'cmp');
+
+	echo "Monthly Sales Report" . PHP_EOL . PHP_EOL;
+	echo "Total Number of Employees: " . employeeCount($employeeArray) . PHP_EOL;
+	echo "Total Number of Units Sold: " . unitsSold($employeeArray) . PHP_EOL;
+	echo "Avg. Units Sold Per Employee: " . employeeAvgSoldUnits($employeeArray) . PHP_EOL . PHP_EOL;
+	echo "Units     |          Full Name                 |     Employee Number" . PHP_EOL;	
+	foreach ($employeeArray as $person) {
+		echo $person['salesUnits'] . '        |     ' . 
+			 $person['firstName'] . ' ' . 
+			 $person['lastName'] . '          |     ' .
+			 $person['employeeNum'] . PHP_EOL;
+	}
 }
 
 function parseContactsArray($employeeArray)
@@ -19,14 +64,14 @@ function parseContactsArray($employeeArray)
 	//Create the associative array
 	foreach ($employeeArray as $person) {
 		$employeeArray = explode(', ', $person);
-		$companyEmployeesInfo[] = array (
+		$companyEmployeesInfoArray[] = array (
 			'employeeNum' => $employeeArray[0],
 			'firstName' => $employeeArray[1],
 			'lastName' => $employeeArray[2],
 			'salesUnits' => $employeeArray[3]
 			);
 	}
-	return $companyEmployeesInfo;
+	return $companyEmployeesInfoArray;
 }		
 
 function cleanFileContents ($fileContentsString)
@@ -46,7 +91,7 @@ function cleanFileContents ($fileContentsString)
 	return $fileContentsArray;
 }
 
-function readFile ($filename)
+function readFileContents ($filename)
 {
 	$handle = fopen($filename, 'r');
 	$fileContentsString = fread($handle, filesize($filename));
@@ -55,14 +100,13 @@ function readFile ($filename)
 	return $fileContentsString;
 }
 
+$gfileContentsString = readFileContents('../data/parse_csv.txt');
+$gfileContentsArray = cleanFileContents($gfileContentsString);
+$gcompanyEmployeesInfoArray = parseContactsArray($gfileContentsArray);
+$printReportResults = printReport($gcompanyEmployeesInfoArray);
 
 
-
-$FILE_CONTENTS_STRING = readFile('../data/parse_csv.txt');
-$FILE_CONTENTS_ARRAY = cleanFileContents($FILE_CONTENTS_STRING);
-$COMPANY_EMPLOYEES_INFO = parseContactsArray($EMPLOYEE_ARRAY);
-
-
+//Sample file for reading
 // Monthly Sales Report
 // Date: 03-17-2015
 // Office: Codeup
