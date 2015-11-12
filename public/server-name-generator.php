@@ -52,7 +52,7 @@ $serverName = randomServerNameGenerator ($adjectivesArray, $nounsArray);
     <h1>Server Name Generator</h1>
     <h3>Your server name is: 
     	<span>
-    		<?php echo $serverName; ?>
+    		<?= $serverName; ?>
     	</span>
     </h3>
 </body>
