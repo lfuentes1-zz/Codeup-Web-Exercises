@@ -1,5 +1,4 @@
 <?php
-
 // Output should include:
 // - total number of employees
 // - total number of units sold
@@ -35,6 +34,19 @@ function employeeAvgSoldUnits ($employeeArray)
 	return ($unitsSoldCount / $numberEmployees);
 }
 
+function getLongestFullNameLength ($employeeArray) {
+	$longestNameLength = 0;
+	foreach ($employeeArray as $person) {
+		$nameLength = 0;
+		$nameLength = $nameLength + strlen($person['firstName']);
+		$nameLength = $nameLength + strlen($person['lastName']);
+		if ($nameLength > $longestNameLength) {
+			$longestNameLength = $nameLength;
+		}
+	}
+	return $longestNameLength + 1;
+}
+
 // Comparison function
 function cmp($a, $b) {
     if ($a['salesUnits'] == $b['salesUnits']) {
@@ -50,22 +62,26 @@ function printReport ($employeeArray) {
 	echo "Avg. Units Sold Per Employee: " . employeeAvgSoldUnits($employeeArray) . PHP_EOL . PHP_EOL;
 
 	//Report Heading
-	//printf built-in function works as follows
+	//printf built-in function works as follows, anything inside the square brackets is optional
 	//printf(%[sign specified: -|+][padding character][alignment specified: -][width][.precision]type)
-	printf("% -11s", "Units");
-	printf("% -41s", "Full Name");
-	printf("% -15s", "Employee Number" . PHP_EOL);
-	printf("%'-68s", "-" . PHP_EOL);
+	$wideColumnPadding = getLongestFullNameLength($employeeArray) + 9;
+	$narrowColumnPadding = 15;
+	$dashes = $narrowColumnPadding + $wideColumnPadding + $narrowColumnPadding;
+
+	printf("% -{$narrowColumnPadding}s", "Units");
+	printf("% -{$wideColumnPadding}s", "Full Name");
+	printf("% -{$narrowColumnPadding}s", "Employee Number" . PHP_EOL);
+	printf("%'-{$dashes}s", "-" . PHP_EOL);
 
 	uasort($employeeArray, 'cmp');
 
 	foreach ($employeeArray as $person) {
-		printf ("% -10s ", $person['salesUnits']);
+		printf ("% -{$narrowColumnPadding}s", $person['salesUnits']);
 
 		$fullName = $person['firstName'] . ' ' . $person['lastName'];
-		printf ("% -40s ", $fullName);
+		printf ("% -{$wideColumnPadding}s", $fullName);
 		
-		printf ("% -10s", $person['employeeNum']);
+		printf ("% -{$narrowColumnPadding}s", $person['employeeNum']);
 
 		echo PHP_EOL;
 	}
