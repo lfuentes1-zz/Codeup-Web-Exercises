@@ -19,6 +19,7 @@ function logMessage($logLevel, $message)
 
 function logInfo($message) {
 	logMessage ("INFO", $message);
+	logMessage ("CRITICAL", $message);
 }
 
 function logError($message) {
