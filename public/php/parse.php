@@ -115,7 +115,6 @@ function cleanFileContents ($fileContentsString)
 			break;
 		}
 	}
-	// $employeeArray = $fileContentsArray;
 	return $fileContentsArray;
 }
 
