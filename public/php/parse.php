@@ -50,6 +50,8 @@ function printReport ($employeeArray) {
 	echo "Avg. Units Sold Per Employee: " . employeeAvgSoldUnits($employeeArray) . PHP_EOL . PHP_EOL;
 
 	//Report Heading
+	//printf built-in function works as follows
+	//printf(%[sign specified: -|+][padding character][alignment specified: -][width][.precision]type)
 	printf("% -11s", "Units");
 	printf("% -41s", "Full Name");
 	printf("% -15s", "Employee Number" . PHP_EOL);
