@@ -1,6 +1,14 @@
 <?php
 
-$myFavoriteThings = array ('1thing', '2thing', '3thing', '4thing', '5thing');
+function pageController(){
+	$myFavoriteThings = array ('1thing', '2thing', '3thing', '4thing', '5thing');	
+
+	return array(
+		'myFavoriteThings' => $myFavoriteThings
+	);
+}
+
+extract(pageController());
 
 ?>
 
