@@ -1,29 +1,5 @@
 <?php
 
-//Adjectives array
-$adjectivesArray = array('bright', 
-			   			'clean',
-			   			'shiny',
-			   			'careful', 
-			   			'outstanding',
-			   			'talented',
-			   			'helpful',
-			   			'poised',
-			   			'distinct',
-			   			'clever');
-//Nouns array
-$nounsArray = array('eyelash',
-					'skin',
-					'child',
-					'book',
-					'adult',
-					'flowers',
-					'nurse',
-					'room',
-					'pajamas',
-					'waterfall');
-
-
 function randomServerNameGenerator($localAdjectivesArray, $localNounsArray){
 	//Option #1
 	// $max = sizeof ($localAdjectivesArray);
@@ -39,7 +15,38 @@ function randomServerNameGenerator($localAdjectivesArray, $localNounsArray){
 					   $localNounsArray[$noun];
 	return $localServerName;
 }
-$serverName = randomServerNameGenerator ($adjectivesArray, $nounsArray);
+
+function pageController(){
+	//Adjectives array
+	$adjectivesArray = array('bright', 
+			   			'clean',
+			   			'shiny',
+			   			'careful', 
+			   			'outstanding',
+			   			'talented',
+			   			'helpful',
+			   			'poised',
+			   			'distinct',
+			   			'clever');
+	//Nouns array
+	$nounsArray = array('eyelash',
+					'skin',
+					'child',
+					'book',
+					'adult',
+					'flowers',
+					'nurse',
+					'room',
+					'pajamas',
+					'waterfall');
+
+	$serverName = randomServerNameGenerator ($adjectivesArray, $nounsArray);
+
+	return array (
+		'serverName' => $serverName
+	);
+}
+extract(pageController());
 ?>
 
 <!DOCTYPE html>
