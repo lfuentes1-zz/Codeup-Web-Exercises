@@ -1,16 +1,31 @@
 <?php
-var_dump ($_POST);
-var_dump($_GET);
+function pageController(){
+	session_start();
+
+	var_dump($_SESSION);
+
+	if ($_SESSION['LOGGED_IN_USER'] == FALSE)
+	{
+		header("location: login.php");
+		die();
+	} else {
+		echo "Welcome, " . $_SESSION['username'] . "!";
+	}
+
+	return array(
+		'username' => $_SESSION['username'],
+	);
+}
+extract(pageController());
 ?>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		</title>Authorized Page</title>
 	</head>
-
 	<body>
 		<h3>Authorized</h3>
-	</body>
+		<a href="logout.php">Logout</a>
+ 	</body>
 
 </html>
