@@ -7,7 +7,7 @@ function inputHas ($key) {
 
 // inputGet($key): returns the value specified by the key, or null if the key is not set.
 function inputGet($key) {
-	return (isset($_REQUEST[$key])) ? $_REQUEST[$key] : NULL;
+	return (inputHas($key)) ? escape($_REQUEST[$key]) : NULL;
 }
 
 // escape($input): returns the input as a safely escaped string.
