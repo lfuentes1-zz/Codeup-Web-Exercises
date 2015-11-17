@@ -2,6 +2,8 @@
 using rand() to decide if a play is a hit or miss. -->
 
 <?php
+require_once 'functions.php';
+
 function increaseCounter ($counterToUp){
 	$counterToUp++;
 	return $counterToUp;
@@ -12,7 +14,23 @@ function gameOver(){
 }
 
 function pageController() {
-	$click = isset($_GET['click']) ? $_GET['click'] : 0;
+	// inputHas($key): returns true or false based on whether the key is available.
+	// inputGet($key): returns the value specified by the key, or null if the key is not set.
+	// $click = isset($_GET['click']) ? $_GET['click'] : 0;
+	$click = inputHas('click') ? inputGet('click') : 0;
+
+	// if (isset($_GET['click'])) {
+	// 	$click = $_GET['click']
+	// } else {
+	// 	$click = 0;
+	// }
+
+	// if (inputHas('click'))
+	// {
+	// 	$click = inputGet('click')
+	// } else {
+	// 	$click = 0;
+	// }
 
 	$hit = increaseCounter($click);
 	$miss = gameOver();
@@ -35,12 +53,12 @@ extract(pageController());
 <body>
     <h2>Your counter value:
     	<span>
-    		<?= $click; ?>
+    		<?= escape($click); ?>
     	</span>
     </h2>
     <?php if ($click !== "Game Over"): ?>
-    	<a href="pong.php?click=<?= $hit; ?>">Hit</a> 	
-    	<a href="ping.php?click=<?= $miss; ?>">Miss</a> 	
+    	<a href="pong.php?click=<?= escape($hit); ?>">Hit</a> 	
+    	<a href="ping.php?click=<?= escape($miss); ?>">Miss</a> 	
 	<?php else: ?>
 	    <a href="ping.php">New Game</a> 		
 	<?php endif; ?>
