@@ -19,7 +19,8 @@
 
 	function LogOut()
 	{
-		if ($_SESSION['LOGGED_IN_USER'] == TRUE)
+		// if ($_SESSION['LOGGED_IN_USER'] == TRUE)
+		if (isset($_SESSION['LOGGED_IN_USER']))
 		{
 			$_SESSION['LOGGED_IN_USER'] = FALSE;
 			var_dump($_SESSION);
