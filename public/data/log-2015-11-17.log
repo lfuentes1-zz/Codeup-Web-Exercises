@@ -1,0 +1,16 @@
+2015-11-17 12:28:21 [INFO] This is an info message
+2015-11-17 12:28:21 [CRITICAL] This is an info message
+2015-11-17 12:28:21 [ERROR] This is an error message. OH NOES!
+ 18:57:43 [] 
+ 18:57:43 [INFO] This is an info message
+ 18:57:43 [CRITICAL] This is an info message
+ 18:57:43 [ERROR] This is an error message.
+ 18:58:38 [INFO] This is an info message
+ 18:58:38 [CRITICAL] This is an info message
+ 18:58:38 [ERROR] This is an error message.
+2015-11-17 18:59:27 [INFO] This is an info message
+2015-11-17 18:59:27 [CRITICAL] This is an info message
+2015-11-17 18:59:27 [ERROR] This is an error message.
+2015-11-17 13:00:09 [INFO] This is an info message
+2015-11-17 13:00:09 [CRITICAL] This is an info message
+2015-11-17 13:00:09 [ERROR] This is an error message.
