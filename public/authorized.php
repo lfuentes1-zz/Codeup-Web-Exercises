@@ -1,8 +1,8 @@
 <?php
 	function checkUserStatus()
 	{
-		// if (!isset($_SESSION['LOGGED_IN_USER']))
-		if ($_SESSION['LOGGED_IN_USER'] == FALSE)
+		// if ($_SESSION['LOGGED_IN_USER'] == FALSE)
+		if (!isset($_SESSION['LOGGED_IN_USER']))
 		{
 			header("location: login.php");
 			die();
