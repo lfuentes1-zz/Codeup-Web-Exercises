@@ -1,22 +1,28 @@
 <?php
-function pageController(){
-	session_start();
-
-	var_dump($_SESSION);
-
-	if ($_SESSION['LOGGED_IN_USER'] == FALSE)
+	function checkUserStatus()
 	{
-		header("location: login.php");
-		die();
-	} else {
-		echo "Welcome, " . $_SESSION['username'] . "!";
+		// if (!isset($_SESSION['LOGGED_IN_USER']))
+		if ($_SESSION['LOGGED_IN_USER'] == FALSE)
+		{
+			header("location: login.php");
+			die();
+		}
 	}
 
-	return array(
-		'username' => $_SESSION['username'],
-	);
-}
-extract(pageController());
+	function pageController(){
+		session_start();
+
+		var_dump($_SESSION);
+
+		checkUserStatus();
+
+		$username = $_SESSION['username'];
+
+		return array(
+			'username' => $username,
+		);
+	}
+	extract(pageController());
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +30,8 @@ extract(pageController());
 	<head>
 	</head>
 	<body>
-		<h3>Authorized</h3>
+		<h3>You are authorized to access this page!</h3>
+		<h3>You are logged in as <?= $username ?>.</h3>
 		<a href="logout.php">Logout</a>
  	</body>
 
