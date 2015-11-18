@@ -12,10 +12,8 @@ class Log {
 
 	public function logMessage($logLevel, $message)
     {
-    	// $handle = fopen($this->filename, 'a');
     	$data = date("Y-m-d") . ' ' . date("H:i:s") . ' [' . $logLevel . '] ' . $message;
-    	fwrite($handle, $data . PHP_EOL);
-		fclose($handle);
+    	fwrite($this->handle, $data . PHP_EOL);
     }	
 
     public function info($message){
@@ -24,5 +22,10 @@ class Log {
 
     public function error($message){
 		$this->logMessage ("ERROR", $message);
+    }
+
+    public function __destruct()
+    {
+		fclose($this->handle);
     }
 }
