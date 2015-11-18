@@ -12,7 +12,7 @@ class Auth {
 
 		$logger = new Log('log');
 
-		if ($username === 'guest') && (password_verify($password, $this->password) {
+		if ($username === 'guest') && (password_verify($password, self::password) {
 			$_SESSION['LOGGED_IN_USER'] = TRUE;
 			$logger->info("User {$username} logged in.");
 		} else {
@@ -21,6 +21,9 @@ class Auth {
 	}
 
 	public static check (){
+		// Auth::check() will return a boolean whether or not a user is logged in.
+
+
 
 	}
 
