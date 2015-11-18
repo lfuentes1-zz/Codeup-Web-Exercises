@@ -9,4 +9,20 @@ class Auth {
 	public static $password = '$2y$10$SLjwBwdOVvnMgWxvTI4Gb.YVcmDlPTpQystHMO2Kfyi/DS8rgA0Fm';
 
 
+	public static attempt ($username, $password){
+
+	}
+
+	public static check (){
+
+	}
+
+	public static user (){
+
+	}
+
+	public static logout(){
+
+	}
+
 }
