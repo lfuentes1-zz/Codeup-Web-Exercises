@@ -1,5 +1,5 @@
 <?php
-require_once 'functions.php';
+require_once '../Input.php';
 
 function increaseCounter ($counterToUp){
 	$counterToUp++;
@@ -12,7 +12,8 @@ function gameOver(){
 
 function pageController() {
 	// $click = isset($_GET['click']) ? $_GET['click'] : 0;
-	$click = inputHas('click') ? inputGet('click') : 0;
+	$click = Input::has('click') ? Input::get('click') : 0;
+	// $click = inputHas('click') ? inputGet('click') : 0;
 
 	$hit = increaseCounter($click);
 	$miss = gameOver();
@@ -35,12 +36,12 @@ extract(pageController());
 <body>
     <h2>Your counter value:
     	<span>
-    		<?= escape($click); ?>
+    		<?= Input::escape($click); ?>
     	</span>
     </h2>
     <?php if ($click !== "Game Over"): ?>
-    	<a href="ping.php?click=<?= escape($hit); ?>">Hit</a> 	
-    	<a href="pong.php?click=<?= escape($miss); ?>">Miss</a> 	
+    	<a href="ping.php?click=<?= Input::escape($hit); ?>">Hit</a> 	
+    	<a href="pong.php?click=<?= Input::escape($miss); ?>">Miss</a> 	
 	<?php else: ?>
 	    <a href="pong.php">New Game</a> 		
 	<?php endif; ?>
