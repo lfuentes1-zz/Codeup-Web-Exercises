@@ -4,34 +4,22 @@ require_once 'Auth.php';
 
 	function pageController(){
 		session_start();
-		$sessionId = session_id();
 		
-		var_dump ($_SESSION);
-
 		$message = "";
 		$username = "";
 		$_SESSION['LOGGED_IN_USER'] = FALSE;
 
-		if (isset($_POST['username']) && isset($_POST['password'])) {
-			// $username = isset($_POST['username']) ? $_POST['username'] : '';
-			// $password = isset($_POST['password']) ? $_POST['password'] : ''; 
-			//we already know that $username and $password are set so rewrite the previous two lines as follows
-			$username = htmlspecialchars(strip_tags($_POST['username']));
-			$password = htmlspecialchars(strip_tags($_POST['password']));
-		
-			if (($username == "guest") && ($password == "password") || $_SESSION['LOGGED_IN_USER'] == TRUE)
-			{ 
-				$_SESSION['username'] = $username;
-				$_SESSION['LOGGED_IN_USER'] = TRUE;
-				header("location: authorized.php");
-				var_dump ($_SESSION);
+		if (isset($_POST['username']) && isset($_POST['password'])) { //use the wrapper class for line#13
+			$username = Input::escape($_POST['username']));
+			$password = Input::escape($_POST['password']));
 
-				//after a header redirect, php keeps running remaining code, die() prevents that from happening.
+			if (Auth::attempt($username, $password) || Auth::check())
+			{ 
+				$username = Input::get($_SESSION['username']);
+				header("location: authorized.php");
 				die ();
 			} else {
-				var_dump($_SESSION);
 				$message = "Input a valid username and password!";
-				// $_SESSION['LOGGED_IN_USER'] = FALSE;
 			}
 		}
 
