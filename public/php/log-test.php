@@ -4,7 +4,7 @@ require_once 'Log.php';
 date_default_timezone_set("America/Chicago");
 
 // Create an instance of the Log class
-$logger = new Log();
+$logger = new Log('../data/cli-');
 
 $logger->info("This is an info message");
 $logger->error("This is an error message.");
