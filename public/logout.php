@@ -1,4 +1,7 @@
 <?php
+require_once 'Input.php';
+require_once 'Auth.php';
+
 	function endSession()
 	{
 	    // Unset all of the session variables.
