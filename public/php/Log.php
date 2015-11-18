@@ -1,14 +1,14 @@
 <?php
+date_default_timezone_set("America/Chicago");
 
 class Log {
 	public $filename;
 	public $handle;
 
-	public function __construct($prefix = 'log')
+	public function __construct($prefix = '../data/log')
     {
     	$today = date("Y-m-d");
-    	// $this->filename = '../data/' . $prefix . '-' . date("Y-m-d") . '.log';
-    	$this->filename = "../data/{$prefix}-{$today}.log";
+    	$this->filename = "{$prefix}-{$today}.log";
     	$this->handle = fopen($this->filename, 'a');
     }
 

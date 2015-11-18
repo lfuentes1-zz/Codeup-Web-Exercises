@@ -13,9 +13,7 @@ require_once '../lib/Auth.php';
 
 	function pageController(){
 		session_start();
-
 		checkUserStatus();
-
 		$username = Auth::user();
 
 		return array(

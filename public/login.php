@@ -36,7 +36,6 @@ require_once '../lib/Auth.php';
 <html>
 	<head>
 		<meta charset="utf-8">
-		</title>POST Example</title>
 	</head>
 	<body>
 		<br>
