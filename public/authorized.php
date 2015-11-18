@@ -1,4 +1,7 @@
 <?php
+require_once 'Input.php';
+require_once 'Auth.php';
+
 	function checkUserStatus()
 	{
 		// if (!isset($_SESSION['LOGGED_IN_USER']))
