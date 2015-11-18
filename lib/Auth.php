@@ -32,7 +32,10 @@ class Auth {
 	}
 
 	public static logout(){
-
+		if (isset($_SESSION['LOGGED_IN_USER']))
+		{
+			// $_SESSION['LOGGED_IN_USER'] = FALSE;
+			unset($_SESSION['LOGGED_IN_USER']);
+		}
 	}
-
 }
