@@ -1,6 +1,6 @@
 <?php 
-require_once 'Input.php';
-require_once 'Auth.php';
+require_once '../lib/Input.php';
+require_once '../lib/Auth.php';
 
 	function pageController(){
 		session_start();
@@ -9,9 +9,10 @@ require_once 'Auth.php';
 		$username = "";
 		$_SESSION['LOGGED_IN_USER'] = FALSE;
 
-		if (isset($_POST['username']) && isset($_POST['password'])) { //use the wrapper class for line#13
-			$username = Input::escape($_POST['username']));
-			$password = Input::escape($_POST['password']));
+		if (isset($_POST['username']) && isset($_POST['password']))
+		{ //use the wrapper class for line#13
+			$username = Input::escape($_POST['username']);
+			$password = Input::escape($_POST['password']);
 
 			if (Auth::attempt($username, $password) || Auth::check())
 			{ 

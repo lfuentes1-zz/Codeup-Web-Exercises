@@ -1,6 +1,6 @@
 <?php
-require_once 'Input.php';
-require_once 'Auth.php';
+require_once '../lib/Input.php';
+require_once '../lib/Auth.php';
 
 	function checkUserStatus()
 	{

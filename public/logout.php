@@ -1,6 +1,6 @@
 <?php
-require_once 'Input.php';
-require_once 'Auth.php';
+require_once '../lib/Input.php';
+require_once '../lib/Auth.php';
 
 	function endSession()
 	{
@@ -22,36 +22,14 @@ require_once 'Auth.php';
 
 	function LogOut()
 	{
-		// if ($_SESSION['LOGGED_IN_USER'] == TRUE)
-		if (isset($_SESSION['LOGGED_IN_USER']))
+		session_start();
+		if (Auth::check())
 		{
 			$_SESSION['LOGGED_IN_USER'] = FALSE;
-			var_dump($_SESSION);
 			endSession();
 			header("location: login.php");
 			die();
 		}
 	}
-
-	function pageController(){
-		session_start();
-
-		var_dump($_SESSION);
-
-		LogOut();
-
-		//Should I remove the return array here as well as the extract page controller
-		return array(
-			'username' => $_SESSION['username'],
-		);
-	}
-	extract(pageController());
+	LogOut();
 ?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-	</head>
-	<body>
-	</body>
-</html>
