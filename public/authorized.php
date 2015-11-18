@@ -4,8 +4,7 @@ require_once 'Auth.php';
 
 	function checkUserStatus()
 	{
-		// if (!isset($_SESSION['LOGGED_IN_USER']))
-		if ($_SESSION['LOGGED_IN_USER'] == FALSE)
+		if (Auth::check() == FALSE)
 		{
 			header("location: login.php");
 			die();
@@ -15,11 +14,9 @@ require_once 'Auth.php';
 	function pageController(){
 		session_start();
 
-		var_dump($_SESSION);
-
 		checkUserStatus();
 
-		$username = $_SESSION['username'];
+		$username = Auth::user();
 
 		return array(
 			'username' => $username,
