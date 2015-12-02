@@ -1,20 +1,53 @@
 <?php
 require_once '../lib/park_db_config.php';
 require_once '../lib/db_connect.php';
+require_once '../lib/Input.php';
+
+function increasePage ($pageNumber)
+{
+	return $pageNumber + 1;
+}
+
+function decreasePage ($pageNumber){
+	$pageNumber--;
+
+	return $pageNumber;
+}
+
+function updatePageContents ($page, $dbc) {
+	$limit = 2;
+
+	$offset = $limit * $page - $limit;
+	// echo "answer: " . $offset;
+
+	$selectLimitedQuery = "SELECT * FROM `national_parks` LIMIT 2 OFFSET " . $offset;
+	$stmt = $dbc->query($selectLimitedQuery);
+	$query = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+	// var_dump ($query);
+
+	return $query;
+}
 
 function pageController($dbc){
 	session_start();
+	
+	//Modify your query to load only four parks at a time. 
 
-	$selectAllQuery = 'SELECT * FROM national_parks';
-	$stmt = $dbc->query($selectAllQuery);
-	$query = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-	// var_dump($query);
+	$pageNumber = Input::has('pageNumber') ? Input::get('pageNumber') : 1;
+	
+	$nextPage = increasePage($pageNumber);
+	$previousPage = decreasePage($pageNumber);	
+	$query = updatePageContents($pageNumber, $dbc);
 
 	return [
-		'parks' => $query
+		'parks' => $query,
+		'nextPage'   => $nextPage,
+		'previousPage' => $previousPage,
+		'pageNumber' => $pageNumber
 	];
 }
+//When I click on links the page loads and everything in page controller runs
 extract(pageController($dbc));
 ?>
 
@@ -46,6 +79,9 @@ extract(pageController($dbc));
 
 		<?php var_dump ($parks) ?>
 	</table>
+		
+	<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
+	<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
 
 </body>
 </html>
