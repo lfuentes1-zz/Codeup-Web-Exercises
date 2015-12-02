@@ -1,1 +1,3 @@
 .DS_STORE
+lib/db_config.php
+lib/park_db_config.php
