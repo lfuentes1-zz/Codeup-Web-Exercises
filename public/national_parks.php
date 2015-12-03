@@ -8,8 +8,9 @@ function updatePageContents ($page, $dbc) {
 
 	$offset = $limit * $page - $limit;
 
-	$selectLimitedQuery = "SELECT * FROM `national_parks` LIMIT 4 OFFSET " . $offset;
-	$stmt = $dbc->query($selectLimitedQuery);
+	$stmt = $dbc->prepare('SELECT * FROM national_parks LIMIT 4 OFFSET :offset');
+	$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+	$stmt->execute();
 	$query = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	return $query;
@@ -31,8 +32,9 @@ function decreasePage ($pageNumber)
 
 function calculateNumberOfPages ($dbc)
 {
-	$selectAllQuery = "SELECT * FROM `national_parks`";
-	$stmt = $dbc->query($selectAllQuery);
+	//using a prepare statement is not necessary here because we are not using any variables in the SELECT statement
+	$stmt = $dbc->prepare('SELECT * FROM national_parks');
+	$stmt->execute();
 	$numberOfRecords = $stmt->rowCount();
 
 	$numberOfPages = ceil($numberOfRecords / 4);
