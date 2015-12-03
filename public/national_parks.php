@@ -90,22 +90,18 @@ extract(pageController($dbc));
 		<?php endforeach; ?>
 	</table>
 
-	<?php switch ($pageNumber) { ?>
-		<?php case 1: ?>
-			<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
-			<?php break; ?>
-		<?php case $numberOfPages: ?>
-			<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
-			<?php break; ?>
-		<?php default: ?>
-			<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
-			<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
+	<?php if ($pageNumber == 1) { ?>
+		<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
+	<?php } elseif ($pageNumber == $numberOfPages) { ?>
+		<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
+	<?php } else { ?>
+		<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
+		<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
 	<?php } ?>
-	
+
 </body>
 </html>
 
-<!-- next/previous should appear only when nexessary-->
 <!-- header redirect to home page if they manually enter something invalid in the URL -->
 <!-- check for non-numeric manual entries on the URL -->
 <!-- limit should not be hard coded -->
