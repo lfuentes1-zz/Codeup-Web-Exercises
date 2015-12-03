@@ -1,6 +1,15 @@
 <?php
 class Input
 {
+    //checks if an input is empty string or not
+    public static function setAndNotEmpty($key)
+    {
+        if(isset($_REQUEST[$key]) && $_REQUEST[$key] != '')
+        {
+            return true;
+        }
+    }
+
     // escape($input): returns the input as a safely escaped string.
     public static function escape($input) {
         return htmlspecialchars(strip_tags($input));
