@@ -3,48 +3,61 @@ require_once '../lib/park_db_config.php';
 require_once '../lib/db_connect.php';
 require_once '../lib/Input.php';
 
-function increasePage ($pageNumber)
-{
-	return $pageNumber + 1;
-}
-
-function decreasePage ($pageNumber){
-	$pageNumber--;
-
-	return $pageNumber;
-}
-
 function updatePageContents ($page, $dbc) {
-	$limit = 2;
+	$limit = 4;
 
 	$offset = $limit * $page - $limit;
-	// echo "answer: " . $offset;
 
-	$selectLimitedQuery = "SELECT * FROM `national_parks` LIMIT 2 OFFSET " . $offset;
+	$selectLimitedQuery = "SELECT * FROM `national_parks` LIMIT 4 OFFSET " . $offset;
 	$stmt = $dbc->query($selectLimitedQuery);
 	$query = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-	// var_dump ($query);
 
 	return $query;
 }
 
+function increasePage ($pageNumber, $numberOfPages)
+{
+	$pageNumber = ($pageNumber < $numberOfPages) ? $pageNumber + 1 : $pageNumber;
+
+	return $pageNumber;
+}
+
+function decreasePage ($pageNumber)
+{
+	$pageNumber = ($pageNumber > 1) ? $pageNumber - 1 : $pageNumber;
+
+	return $pageNumber;
+}
+
+function calculateNumberOfPages ($dbc)
+{
+	$selectAllQuery = "SELECT * FROM `national_parks`";
+	$stmt = $dbc->query($selectAllQuery);
+	$numberOfRecords = $stmt->rowCount();
+
+	$numberOfPages = ceil($numberOfRecords / 4);
+
+	var_dump ("Number of Pages: " . $numberOfPages . "!");
+
+	return $numberOfPages;
+}
+
 function pageController($dbc){
 	session_start();
-	
-	//Modify your query to load only four parks at a time. 
-
+	$numberOfPages = calculateNumberOfPages($dbc);
+	// var_dump ("Number of Pages: " . $numberOfPages . "!");	
 	$pageNumber = Input::has('pageNumber') ? Input::get('pageNumber') : 1;
 	
-	$nextPage = increasePage($pageNumber);
-	$previousPage = decreasePage($pageNumber);	
+	$nextPage = increasePage($pageNumber, $numberOfPages);
+	$previousPage = decreasePage($pageNumber);
 	$query = updatePageContents($pageNumber, $dbc);
 
 	return [
 		'parks' => $query,
 		'nextPage'   => $nextPage,
 		'previousPage' => $previousPage,
-		'pageNumber' => $pageNumber
+		'pageNumber' => $pageNumber,
+		'numberOfPages' => $numberOfPages
 	];
 }
 //When I click on links the page loads and everything in page controller runs
@@ -58,8 +71,6 @@ extract(pageController($dbc));
 </head>
 <body>
 	<h2>National Parks</h2>
-	<h3>Database Driven Web Application</h3>
-
 	<table>
 		<tr>
 			<th>Name</th>
@@ -77,12 +88,24 @@ extract(pageController($dbc));
 			</tr>
 		<?php endforeach; ?>
 
-		<?php var_dump ($parks) ?>
+		<!-- <?php var_dump ($parks) ?> -->
 	</table>
-		
-	<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
-	<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
 
+<!-- 	if @ page 1 then don't show previous
+	if @ page 2 - n, show previous and next
+	if @ last page then don't show next -->
+
+	
+	
+	<?php if (($pageNumber > 0) && ($pageNumber <= $numberOfPages)) { ?>
+		<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
+		<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
+	<?php } ?>
 </body>
 </html>
+
+<!-- next/previous should appear only when nexessary-->
+<!-- header redirect to home page if they manually enter something negative in the URL -->
+<!-- check for numeric manual entries on the URL -->
+<!-- limit should not be hard coded -->
 
