@@ -24,6 +24,7 @@ $createTable = 'CREATE TABLE national_parks (
     date_established DATE DEFAULT NULL,
     area_in_acres DOUBLE,
     -- area_in_acres FLOAT(10,2),
+    description TEXT,
     PRIMARY KEY (id)
 )';
 
