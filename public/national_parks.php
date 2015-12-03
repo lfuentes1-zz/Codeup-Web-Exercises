@@ -71,6 +71,7 @@ extract(pageController($dbc));
 </head>
 <body>
 	<h2>National Parks</h2>
+
 	<table>
 		<tr>
 			<th>Name</th>
@@ -87,25 +88,25 @@ extract(pageController($dbc));
 				<td><?= $park['area_in_acres']; ?> </td>
 			</tr>
 		<?php endforeach; ?>
-
-		<!-- <?php var_dump ($parks) ?> -->
 	</table>
 
-<!-- 	if @ page 1 then don't show previous
-	if @ page 2 - n, show previous and next
-	if @ last page then don't show next -->
-
-	
-	
-	<?php if (($pageNumber > 0) && ($pageNumber <= $numberOfPages)) { ?>
-		<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
-		<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
+	<?php switch ($pageNumber) { ?>
+		<?php case 1: ?>
+			<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
+			<?php break; ?>
+		<?php case $numberOfPages: ?>
+			<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
+			<?php break; ?>
+		<?php default: ?>
+			<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
+			<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
 	<?php } ?>
+	
 </body>
 </html>
 
 <!-- next/previous should appear only when nexessary-->
-<!-- header redirect to home page if they manually enter something negative in the URL -->
-<!-- check for numeric manual entries on the URL -->
+<!-- header redirect to home page if they manually enter something invalid in the URL -->
+<!-- check for non-numeric manual entries on the URL -->
 <!-- limit should not be hard coded -->
 
