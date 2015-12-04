@@ -60,6 +60,8 @@ function insertPark ($name, $location, $date_established, $area_in_acres, $descr
 
 	try {
     	$stmt->execute();
+    	//take me to the page of the newly added contents (last page) - will need to call updateContnets
+    	// updatePageContents ($page, $dbc) should be called here
 	} catch (Exception $e) {
     // Report any errors
 		$message = 'Unable to add park to the database: ' . $e->getMessage();
@@ -123,7 +125,7 @@ function pageController($dbc){
 		'previousPage' => $previousPage,
 		'pageNumber' => $pageNumber,
 		'numberOfPages' => $numberOfPages,
-		'message' => $message
+		'message' => $message,
 	];
 }
 //When I click on links the page loads and everything in page controller runs
@@ -167,7 +169,9 @@ extract(pageController($dbc));
 		<a href="national_parks.php?pageNumber=<?= Input::escape($previousPage); ?>">Previous</a>
 		<a href="national_parks.php?pageNumber=<?= Input::escape($nextPage); ?>">Next</a> 		
 	<?php } ?>
-	<br><br><br>
+	<br>
+	<h5><?= $pageNumber ?> of <?= $numberOfPages ?></h5>
+	<br>
 	<!-- action could go to a new page to handle input and insert it into the DB -->
 	<form action="national_parks.php" method="POST">
 		<fieldset>
@@ -196,7 +200,5 @@ extract(pageController($dbc));
 </html>
 
 <!-- take me to the page of the newest added entry, will have to update contents -->
-<!-- tell them what page # they are on -->
 
 <!-- limit should not be hard coded -- updatePageContents function-->
-
