@@ -19,7 +19,7 @@ $dbc->exec($deleteTable);
 
 $createTable = 'CREATE TABLE national_parks (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     location VARCHAR(50) NOT NULL,
     date_established DATE DEFAULT NULL,
     area_in_acres DOUBLE,
