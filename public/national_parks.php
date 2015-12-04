@@ -1,4 +1,5 @@
 <?php
+define ('VIEW_LIMIT', '4');
 require_once '../lib/park_db_config.php';
 require_once '../lib/db_connect.php';
 require_once '../lib/Input.php';
@@ -8,7 +9,8 @@ function updatePageContents ($page, $dbc) {
 
 	$offset = $limit * $page - $limit;
 
-	$stmt = $dbc->prepare('SELECT * FROM national_parks LIMIT 4 OFFSET :offset');
+	$query = "SELECT * FROM national_parks LIMIT {$limit} OFFSET :offset";
+	$stmt = $dbc->prepare($query);
 	$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
 	$stmt->execute();
 	$query = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -38,13 +40,14 @@ function calculateNumberOfPages ($dbc)
 	$stmt->execute();
 	$numberOfRecords = $stmt->rowCount();
 
-	$numberOfPages = ceil($numberOfRecords / 4);
+	$numberOfPages = ceil($numberOfRecords / (int)VIEW_LIMIT);
 
 	return $numberOfPages;
 }
 
 function insertPark ($name, $location, $date_established, $area_in_acres, $description, $dbc)
 {
+	$message = "";
 	$query = "INSERT INTO national_parks (name, location, date_established, area_in_acres, description)
 				VALUES (:name, :location, :date_established, :area_in_acres, :description)";
 	$stmt = $dbc->prepare($query);
@@ -55,7 +58,13 @@ function insertPark ($name, $location, $date_established, $area_in_acres, $descr
     $stmt->bindValue(':area_in_acres', $area_in_acres, PDO::PARAM_STR);
     $stmt->bindValue(':description', $description, PDO::PARAM_STR);
 
-	$stmt->execute();
+	try {
+    	$stmt->execute();
+	} catch (Exception $e) {
+    // Report any errors
+		$message = 'Unable to add park to the database: ' . $e->getMessage();
+	}
+	return $message;
 }
 
 function sanitizeInput ()
@@ -72,8 +81,8 @@ function processForm ($dbc)
 	//form was submitted when $_POST is not empty
 	$message = "";
 	if (!empty($_POST)) {
-		if ((Input::get('name') != '') && (Input::get('location') != '') && (Input::get('date_established') != '') 
-								&& (Input::get('area_in_acres') != '') && (Input::get('description') != ''))
+		if ((Input::setAndNotEmpty('name')) && (Input::setAndNotEmpty('location')) && (Input::setAndNotEmpty('date_established'))
+										&& (Input::setAndNotEmpty('area_in_acres')) && (Input::setAndNotEmpty('description')))
 		{
 			sanitizeInput();
 			$name = Input::get('name');
@@ -81,7 +90,7 @@ function processForm ($dbc)
 			$date_established = Input::get('date_established');
 			$area_in_acres = Input::get('area_in_acres');
 			$description = Input::get('description');
-			insertPark($name, $location, $date_established, $area_in_acres, $description, $dbc);
+			$message = insertPark(trim($name), trim($location), trim($date_established), trim($area_in_acres), trim($description), $dbc);
 		}
 		else //enter info on all fields before proceeding
 		{
@@ -96,9 +105,11 @@ function pageController($dbc){
 	$numberOfPages = calculateNumberOfPages($dbc);
 	$pageNumber = Input::has('pageNumber') ? Input::get('pageNumber') : 1;
 	
-	if ((!is_numeric($pageNumber)) || ($pageNumber < 0) || ($pageNumber == 0) || ($pageNumber > $numberOfPages))
+	//an invalid page number has been entered
+	if ((!is_numeric($pageNumber)) || ($pageNumber <= 0) || ($pageNumber > $numberOfPages))
 	{
-		$pageNumber = 1;
+		header("location: national_parks.php");
+		die();
 	}
 	$nextPage = increasePage($pageNumber, $numberOfPages);
 	$previousPage = decreasePage($pageNumber);	
@@ -117,7 +128,7 @@ function pageController($dbc){
 }
 //When I click on links the page loads and everything in page controller runs
 extract(pageController($dbc));
-var_dump($_POST);
+// var_dump($_POST);
 ?>
 
 <!doctype html>
@@ -184,14 +195,8 @@ var_dump($_POST);
 </body>
 </html>
 
-<!-- header redirect to home page if they manually enter something invalid in the URL -->
-<!-- check for non-numeric manual entries on the URL -->
-
-<!-- unique parks in the database - do not allow duplicate entries -->	
-<!-- date picker with javascript -->
 <!-- take me to the page of the newest added entry, will have to update contents -->
+<!-- tell them what page # they are on -->
 
-<!-- can use the not empty method from the input class in the processForm function -->
-<!-- limit should not be hard coded -->
+<!-- limit should not be hard coded -- updatePageContents function-->
 
-<!-- delete entries from the database/ -->
