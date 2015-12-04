@@ -2,8 +2,8 @@
 
 class Rectangle {
 
-	public static $height;
-	public static $width;
+	public $height;
+	public $width;
 
 	public function __construct($height, $width)
     {
@@ -11,8 +11,8 @@ class Rectangle {
         $this->width = $width;
     }
 
-    public static function area ($height, $width)
+    public function area ()
     {
-    	return $height * $width;
+    	return $this->height * $this->width;
     }
 }
