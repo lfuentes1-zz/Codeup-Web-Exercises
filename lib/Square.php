@@ -5,8 +5,7 @@ class Square extends Rectangle
 {
     public function __construct($side)
     {
-        $this->height = $side;
-        $this->width = $side;
+        parent::__construct($side, $side);
     }
 
     // In the new Square class, create a method called perimeter that returns the perimeter of the square.
@@ -16,4 +15,9 @@ class Square extends Rectangle
     }
 
 }
+
+// Update the Square class to override the parent's constructor by only accepting one attribute (height) and using that to 
+// set both $width and $height in your class.
+
+// Update the constructor in Square to instead pass height on to the parent's constructor.
 
