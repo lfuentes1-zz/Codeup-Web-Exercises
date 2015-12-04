@@ -9,15 +9,17 @@ class Square extends Rectangle
     }
 
     // In the new Square class, create a method called perimeter that returns the perimeter of the square.
+    //this perimeter method overrides the perimeter method in Rectangle
     public function perimeter ()
     {
         return $this->width + $this->height + $this->width + $this->height;
+        // return (($this->width * 2) + ($this->height * 2));
+    }
+
+    //this area method overrides the area method in Rectangle
+    public function area ()
+    {
+        return $this->height * $this->width;
     }
 
 }
-
-// Update the Square class to override the parent's constructor by only accepting one attribute (height) and using that to 
-// set both $width and $height in your class.
-
-// Update the constructor in Square to instead pass height on to the parent's constructor.
-
