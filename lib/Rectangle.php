@@ -16,3 +16,6 @@ class Rectangle {
     	return $this->height * $this->width;
     }
 }
+
+
+// why can't I use static?
