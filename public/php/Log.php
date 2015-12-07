@@ -8,8 +8,18 @@ class Log {
 	public function __construct($prefix = '../data/log')
     {
     	$today = date("Y-m-d");
-    	$this->filename = "{$prefix}-{$today}.log";
-    	$this->handle = fopen($this->filename, 'a');
+        $filename = "{$prefix}-{$today}.log";
+        $this->setFilename($filename);
+        $this->handle = fopen($this->filename, 'a');
+    }
+
+    protected function setFilename ($filename)
+    {
+        if (is_string($filename))
+        {
+            $this->filename = $filename;
+        }
+        //TODO:  else return an error
     }
 
 	public function logMessage($logLevel, $message)
