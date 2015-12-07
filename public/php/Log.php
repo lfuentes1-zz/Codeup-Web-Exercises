@@ -2,8 +2,8 @@
 date_default_timezone_set("America/Chicago");
 
 class Log {
-	public $filename;
-	public $handle;
+	private $filename;
+	private $handle;
 
 	public function __construct($prefix = '../data/log')
     {
