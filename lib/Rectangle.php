@@ -16,12 +16,14 @@ class Rectangle {
 
 	protected function setHeight ($height)
     {
-        $this->height = $height;
+        $this->heigth = (is_numeric($height)) ? $height : 0;
+        // $this->height = $height;
     }
 
     protected function setWidth ($width)
     {
-        $this->width = $width;
+        // $this->width = $width;
+        $this->width = (is_numeric($width)) ? $width : 0;
     }
     
     //this is the base method
