@@ -17,7 +17,13 @@ class Log {
     {
         if (is_string($filename))
         {
-            $this->filename = $filename;
+            if (touch($filename)
+            {
+                if (is_writable($filename)))
+                {    
+                    $this->filename = $filename;
+                }
+            }
         }
         //TODO:  else return an error
     }
