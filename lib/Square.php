@@ -12,14 +12,14 @@ class Square extends Rectangle
     //this perimeter method overrides the perimeter method in Rectangle
     public function perimeter ()
     {
-        return $this->width + $this->height + $this->width + $this->height;
+        return $this->getWidth() + $this->getHeight() + $this->getWidth() + $this->getHeight();
         // return (($this->width * 2) + ($this->height * 2));
     }
 
     //this area method overrides the area method in Rectangle
     public function area ()
     {
-        return $this->height * $this->width;
+        return $this->getHeight() * $this->getWidth();
     }
 
 }
