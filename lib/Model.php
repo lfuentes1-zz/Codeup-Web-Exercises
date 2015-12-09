@@ -22,11 +22,10 @@ class Model {
     	//self:: will ensure that all children use this database connection and private will ensure that children still can't 
     	//access this method through the public constructors which calls this method
         //if the database is not connected, then connect
-        if (!self::$dbc)
+        if (!isset(static::$dbc)) 
         {
-        	self::$dbc = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
-			// Tell PDO to throw exceptions on connection error
-			self::$dbc->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        	require "db_connect.php";
+        	static::$dbc = $dbc;
         }
     }
 
@@ -59,9 +58,10 @@ class Model {
 		$query = self::$dbc->prepare("DESCRIBE " . static::$table);
 		$query->execute();
 		//will return all the column names - regardless of the table being used
+		//can also get all the column names $table_columns = array_keys ($this->attributes)
 		$table_columns = $query->fetchAll(PDO::FETCH_COLUMN);
 		$insertQuery = "INSERT INTO " . static::$table . ' (';
-		array_shift($table_columns);
+		$id = array_shift($table_columns);
         //You will need to iterate through all the attributes to build the prepared query
 		foreach ($table_columns as $column)
 		{
@@ -84,21 +84,32 @@ class Model {
 			$stmt->bindValue(":" . $column, $this->attributes[$column], PDO::PARAM_STR);
 		}
 		$stmt->execute();
-        // @TODO: After insert, add the id back to the attributes array so the object can properly reflect the id
-		//set the id in dbc to the last id inserted into the database 
+		array_unshift ($this->attributes, $id);
     }
 
-// TODO:  Update the user
-// TODO:  Verify update in DB
-  //   private function update($id){
-  //       //Ensure that update is properly handled with the id key
-  //   	$query = self::$dbc->prepare("DESCRIBE " . static::$table);
-		// $query->execute();
-		// //will return all the column names - regardless of the table being used
-		// $table_columns = $query->fetchAll(PDO::FETCH_COLUMN);
-  //       foreach ($)
-  //    	$updateQuery = "UPDATE " . static::$table . "SET (?id?)=" . $id "WHERE id=" . $id;
-  //   }
+    public function update($id){
+        //Ensure that update is properly handled with the id key
+    	 // @TODO: Use prepared statements to ensure data security - escape and trim
+		$table_columns = array_keys($this->attributes);
+		// actually remove 'id'
+		$idPopped = array_shift($table_columns);
+		$updateQuery = "UPDATE " . static::$table . " SET ";
+		foreach ($table_columns as $column)
+		{
+			$updateQuery .= "{$column}=:{$column}, ";
+		}
+		$updateQuery = substr($updateQuery, 0, -2);
+		$updateQuery .= " WHERE id= :id";
+		$stmt = self::$dbc->prepare($updateQuery);
+		//bind here needs to include id
+		foreach ($this->attributes as $column => $value) 
+		{
+			$stmt->bindValue(":" . $column, $value, PDO::PARAM_STR);
+		}
+		$stmt->execute();
+		//add the id back
+		$this->attributes['id'] = $id;
+    }
 
     public static function find($id)
     {
@@ -108,7 +119,7 @@ class Model {
         $findQuery = "SELECT * FROM " . static::$table . " WHERE id=" . $id;
         $stmt = self::$dbc->prepare($findQuery);
 		$stmt->execute();
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // The following code will set the attributes on the calling object based on the result variable's contents
         //instantiates an empty object
@@ -131,7 +142,7 @@ class Model {
         	//Perform the proper action - if the `id` is set, this is an update, if not it is a insert
     		if (isset($this->attributes['id']))
     		{
-    			// $this->update($this->attributes['id']);
+    			$this->update($this->attributes['id']);
     		} else {
 		    	try {
 		    		$this->insert();
