@@ -8,16 +8,14 @@ require_once '../lib/User.php';
 // $data->city = 'San Antonio';
 // echo "{$data->name} is taking the {$data->course} course in {$data->city}" . PHP_EOL;
 
-
 // $user = new User();
 // $user->getTableName();
 //below option of using the method can only be used if method is static ; otherwise, only the above option of using method would work
 // User::getTableName();
 
-
 // $contact = new User();
 // $contact->name = 'Letty Fuentes';
-// $contact->email = 'letty@codeup.com';
+// $contact->email = 'letty2@codeup.com';
 // $contact->phone = '210-213-9803';
 // $contact->address = '123 Codeup Building';
 // $contact->city = 'San Antonio';
@@ -37,6 +35,12 @@ require_once '../lib/User.php';
 
 // echo $contact->save();
 
-$user = User::find(1);
-var_dump($user);
+// $user = User::find(2);
+// $users = User::all();
+// var_dump($users);
+// var_dump($user);
+// echo User::delete(2);
+
+
+//update
 // $user->name = "Letty Fuentes";
