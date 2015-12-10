@@ -87,11 +87,11 @@ function processForm ($dbc)
 										&& (Input::setAndNotEmpty('area_in_acres')) && (Input::setAndNotEmpty('description')))
 		{
 			sanitizeInput();
-			$name = Input::get('name');
-			$location = Input::get('location');
-			$date_established = Input::get('date_established');
-			$area_in_acres = Input::get('area_in_acres');
-			$description = Input::get('description');
+			$name = Input::getString('name');
+			$location = Input::getString('location');
+			$date_established = Input::getString('date_established');
+			$area_in_acres = Input::getNumber('area_in_acres');
+			$description = Input::getString('description');
 			$message = insertPark(trim($name), trim($location), trim($date_established), trim($area_in_acres), trim($description), $dbc);
 		}
 		else //enter info on all fields before proceeding
@@ -110,6 +110,8 @@ function pageController($dbc){
 	//an invalid page number has been entered
 	if ((!is_numeric($pageNumber)) || ($pageNumber <= 0) || ($pageNumber > $numberOfPages))
 	{
+		// var_dump($pageNumber);
+		// var_dump($numberOfPages);
 		header("location: national_parks.php");
 		die();
 	}
