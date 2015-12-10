@@ -35,8 +35,27 @@ class Input
      */
     public static function get($key, $default = null)
     {
-        return (self::has($key)) ? self::escape($_REQUEST[$key]) : NULL;
+        return (self::has($key)) ? ($_REQUEST[$key]) : NULL;
     }
+
+    public static function getString($key)
+    {
+        $inputValue = self::get($key);
+        if (!is_string($inputValue)) {
+            throw new Exception ('{$key} is expected to be a string!');
+        }
+        return ($inputValue);
+    }
+
+    public static function getNumber($key)
+    {
+        $inputValue = self::get($key);
+        if (!is_numeric($inputValue)) {
+            throw new Exception ('{$key} is expected to be a number!');
+        }   
+        return floatval($inputValue);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     //                      DO NOT EDIT ANYTHING BELOW!!                     //
