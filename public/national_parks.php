@@ -47,10 +47,10 @@ function calculateNumberOfPages ($dbc)
 
 function insertPark ($name, $location, $date_established, $area_in_acres, $description, $dbc)
 {
-	$message = "";
 	$query = "INSERT INTO national_parks (name, location, date_established, area_in_acres, description)
 				VALUES (:name, :location, :date_established, :area_in_acres, :description)";
 	$stmt = $dbc->prepare($query);
+	$message = "";
 	
 	$stmt->bindValue(':name', $name, PDO::PARAM_STR);
     $stmt->bindValue(':location', $location, PDO::PARAM_STR);
@@ -64,7 +64,8 @@ function insertPark ($name, $location, $date_established, $area_in_acres, $descr
     	// updatePageContents ($page, $dbc) should be called here
 	} catch (Exception $e) {
     // Report any errors
-		$message = 'Unable to add park to the database: ' . $e->getMessage();
+		// $message = 'Unable to add park to the database: ' . $e->getMessage();
+		$message = 'Unable to add park to the database: Duplicate Entry';
 	}
 	return $message;
 }
@@ -80,30 +81,57 @@ function sanitizeInput ()
 
 function processForm ($dbc)
 {
+	$errors = [];
 	//form was submitted when $_POST is not empty
-	$message = "";
 	if (!empty($_POST)) {
-		if ((Input::setAndNotEmpty('name')) && (Input::setAndNotEmpty('location')) && (Input::setAndNotEmpty('date_established'))
-										&& (Input::setAndNotEmpty('area_in_acres')) && (Input::setAndNotEmpty('description')))
-		{
-			sanitizeInput();
-			$name = Input::getString('name');
-			$location = Input::getString('location');
-			$date_established = Input::getString('date_established');
-			$area_in_acres = Input::getNumber('area_in_acres');
-			$description = Input::getString('description');
-			$message = insertPark(trim($name), trim($location), trim($date_established), trim($area_in_acres), trim($description), $dbc);
-		}
-		else //enter info on all fields before proceeding
-		{
-			$message = "All fields must be filled in before proceeding";
+		try {
+			if ((Input::setAndNotEmpty('name')) && (Input::setAndNotEmpty('location')) && (Input::setAndNotEmpty('date_established'))
+											&& (Input::setAndNotEmpty('area_in_acres')) && (Input::setAndNotEmpty('description')))
+			{
+				sanitizeInput();
+				try {
+					$name = Input::getString('name');
+				} catch (Exception $e) {
+					$errors[] = $e->getMessage();
+				}
+				try {
+					$location = Input::getString('location');
+				} catch (Exception $e) {
+					$errors[] = $e->getMessage();
+				}
+				try {
+					$date_established = Input::getDate('date_established');
+				} catch (Exception $e) {
+					$errors[] = $e->getMessage();
+				}
+				try {
+					$area_in_acres = Input::getNumber('area_in_acres');
+				} catch (Exception $e) {
+					$errors[] = $e->getMessage();
+				}
+				try {
+					$description = Input::getString('description');
+				} catch (Exception $e) {
+					$errors[] = $e->getMessage();
+				}
+				if (sizeof($errors) == 0)
+				{
+					$message = insertPark(trim($name), trim($location), $date_established->format('Y-m-d'), 
+						trim($area_in_acres), trim($description), $dbc);
+					$errors[] = $message;
+				}
+			}
+		} catch (Exception $e) {
+			$errors[] = $e->getMessage();
 		}
 	}
-	return $message;
+	// var_dump($errors);
+	return $errors;
 }
 
 function pageController($dbc){
 	session_start();
+	$errors = [];
 	$numberOfPages = calculateNumberOfPages($dbc);
 	$pageNumber = Input::has('pageNumber') ? Input::get('pageNumber') : 1;
 	
@@ -119,7 +147,7 @@ function pageController($dbc){
 	$previousPage = decreasePage($pageNumber);	
 	$query = updatePageContents($pageNumber, $dbc);
 
-	$message = processForm($dbc);
+	$errors = processForm($dbc);
 
 	return [
 		'parks' => $query,
@@ -127,12 +155,13 @@ function pageController($dbc){
 		'previousPage' => $previousPage,
 		'pageNumber' => $pageNumber,
 		'numberOfPages' => $numberOfPages,
-		'message' => $message,
+		'errorMessages' => $errors
 	];
 }
 //When I click on links the page loads and everything in page controller runs
 extract(pageController($dbc));
-// var_dump($_POST);
+var_dump($_POST);
+var_dump($errorMessages);
 ?>
 
 <!doctype html>
@@ -179,21 +208,34 @@ extract(pageController($dbc));
 		<fieldset>
     		<legend>Tell Us About Your Favorite Park</legend>
 			Park Name:<br>
-			<input type="text" name="name">
+			<input type="text" name="name" size="50"
+				<?php if (sizeof($errorMessages) == 0) { ?>
+					value=""
+				<?php } else { ?>
+					value=<?= $_POST['name'] ?>
+				<?php } ?>
+			>
 			<br>
 			Park Location:<br>
-			<input type="text" name="location">
+			<input type="text" name="location" size="50"
+				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['location']; ?>>
 			<br>
 			Date Established:<br>
-			<input type="text" name="date_established">
+			<input type="text" name="date_established" size="50"
+				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['date_established']; ?>>
 			<br>
 			Area In Acres:<br>
-			<input type="text" name="area_in_acres">
+			<input type="text" name="area_in_acres" size="50"
+				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['area_in_acres']; ?>>
 			<br>
 			Description:<br>
-			<input type="text" name="description">
+			<input type="text" name="description" size="50"
+				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['description']; ?>>
 			<br>
-			<h3><?= $message ?></h3>
+			<?php foreach ($errorMessages as $message) ?>
+			<?php { ?>
+				<!-- <h3><?= $message; ?></h3> -->
+			<?php } ?>
 			<input type="submit" value="Submit">
 		</fieldset>
 	</form>
