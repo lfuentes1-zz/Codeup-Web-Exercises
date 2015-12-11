@@ -7,6 +7,8 @@ class Input
         if(isset($_REQUEST[$key]) && $_REQUEST[$key] != '')
         {
             return true;
+        } else {
+            throw new Exception ('Fill in all fields before continuing!');
         }
     }
 
@@ -38,20 +40,32 @@ class Input
         return (self::has($key)) ? ($_REQUEST[$key]) : NULL;
     }
 
+    //9.3.1
+    public static function getDate($key)
+    {
+        $inputValue = self::get($key);
+        try {
+            $dateTimeObject = new DateTime($inputValue);
+        } catch (Exception $e) {
+            throw new Exception ('Date Established:  Invalid Date!');
+        }
+        return $dateTimeObject;
+    }
+
     public static function getString($key)
     {
         $inputValue = self::get($key);
         if (!is_string($inputValue)) {
-            throw new Exception ('{$key} is expected to be a string!');
+            throw new Exception ("{$key}:  Expecting A String!");
         }
         return ($inputValue);
     }
 
     public static function getNumber($key)
     {
-        $inputValue = self::get($key);
+        $inputValue = trim(self::get($key));
         if (!is_numeric($inputValue)) {
-            throw new Exception ('{$key} is expected to be a number!');
+            throw new Exception ("Area In Acres: Expecting A Number!");
         }   
         return floatval($inputValue);
     }
