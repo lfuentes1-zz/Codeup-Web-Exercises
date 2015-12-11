@@ -58,6 +58,8 @@ function insertPark ($name, $location, $date_established, $area_in_acres, $descr
     $stmt->bindValue(':area_in_acres', $area_in_acres, PDO::PARAM_STR);
     $stmt->bindValue(':description', $description, PDO::PARAM_STR);
 
+    echo 'we got here';
+
 	try {
     	$stmt->execute();
     	//take me to the page of the newly added contents (last page) - will need to call updateContnets
@@ -82,6 +84,7 @@ function sanitizeInput ()
 function processForm ($dbc)
 {
 	$errors = [];
+	$errors['count'] = 0;
 	//form was submitted when $_POST is not empty
 	if (!empty($_POST)) {
 		try {
@@ -92,37 +95,47 @@ function processForm ($dbc)
 				try {
 					$name = Input::getString('name');
 				} catch (Exception $e) {
-					$errors[] = $e->getMessage();
+					$errors['name'] = $e->getMessage();
+					$errors['count']++;
 				}
 				try {
 					$location = Input::getString('location');
 				} catch (Exception $e) {
-					$errors[] = $e->getMessage();
+					$errors['location'] = $e->getMessage();
+					$errors['count']++;
 				}
 				try {
 					$date_established = Input::getDate('date_established');
 				} catch (Exception $e) {
-					$errors[] = $e->getMessage();
+					$errors['date_established'] = $e->getMessage();
+					$errors['count']++;
 				}
 				try {
-					$area_in_acres = Input::getNumber('area_in_acres');
+					$area_in_acres = Input::getNumber('area_in_acres', 0, 5000000000.00);
 				} catch (Exception $e) {
-					$errors[] = $e->getMessage();
+					$errors['area_in_acres'] = $e->getMessage();
+					$errors['count']++;
 				}
 				try {
 					$description = Input::getString('description');
 				} catch (Exception $e) {
-					$errors[] = $e->getMessage();
+					$errors['description'] = $e->getMessage();
+					$errors['count']++;
 				}
-				if (sizeof($errors) == 0)
+				if ($errors['count'] == 0)
 				{
 					$message = insertPark(trim($name), trim($location), $date_established->format('Y-m-d'), 
 						trim($area_in_acres), trim($description), $dbc);
-					$errors[] = $message;
+					if ($message != "")
+					{
+						$errors['duplicate'] = $message;
+						$errors['count']++;
+					}
 				}
 			}
 		} catch (Exception $e) {
-			$errors[] = $e->getMessage();
+			$errors['empty'] = $e->getMessage();
+			$errors['count']++;
 		}
 	}
 	// var_dump($errors);
@@ -145,9 +158,9 @@ function pageController($dbc){
 	}
 	$nextPage = increasePage($pageNumber, $numberOfPages);
 	$previousPage = decreasePage($pageNumber);	
+	$errors = processForm($dbc);
 	$query = updatePageContents($pageNumber, $dbc);
 
-	$errors = processForm($dbc);
 
 	return [
 		'parks' => $query,
@@ -209,33 +222,36 @@ var_dump($errorMessages);
     		<legend>Tell Us About Your Favorite Park</legend>
 			Park Name:<br>
 			<input type="text" name="name" size="50"
-				<?php if (sizeof($errorMessages) == 0) { ?>
-					value=""
-				<?php } else { ?>
-					value=<?= $_POST['name'] ?>
-				<?php } ?>
-			>
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['name']; ?>">
 			<br>
 			Park Location:<br>
 			<input type="text" name="location" size="50"
-				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['location']; ?>>
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['location']; ?>">
 			<br>
 			Date Established:<br>
 			<input type="text" name="date_established" size="50"
-				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['date_established']; ?>>
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['date_established']; ?>">
+				<!-- if ((strlen($errorMessages['date_established'])) != 0)
+				{
+
+				} -->
 			<br>
 			Area In Acres:<br>
 			<input type="text" name="area_in_acres" size="50"
-				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['area_in_acres']; ?>>
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['area_in_acres']; ?>">
 			<br>
 			Description:<br>
 			<input type="text" name="description" size="50"
-				value=<?= (sizeof($errorMessages) == 0) ? "" : $_POST['description']; ?>>
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['description']; ?>">
 			<br>
-			<?php foreach ($errorMessages as $message) ?>
-			<?php { ?>
-				<!-- <h3><?= $message; ?></h3> -->
-			<?php } ?>
+			<?php if ($errorMessages['count'] != 0): ?>
+				<?php foreach ($errorMessages as $index => $message): ?>
+					<?php if ($index != 'count'): ?>
+						<h3><?= $message; ?></h3>
+					<?php endif ?>
+				<?php  endforeach ?>
+			<?php  endif ?>
+
 			<input type="submit" value="Submit">
 		</fieldset>
 	</form>
