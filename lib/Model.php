@@ -192,3 +192,5 @@ class Model {
 		return $message;
     }
 }
+
+//TODO:  All queries should not have variables...instead we should be binding the values

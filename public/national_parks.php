@@ -58,21 +58,22 @@ function insertPark ($name, $location, $date_established, $area_in_acres, $descr
     $stmt->bindValue(':area_in_acres', $area_in_acres, PDO::PARAM_STR);
     $stmt->bindValue(':description', $description, PDO::PARAM_STR);
 
-    echo 'we got here';
-
 	try {
     	$stmt->execute();
     	//take me to the page of the newly added contents (last page) - will need to call updateContnets
     	// updatePageContents ($page, $dbc) should be called here
 	} catch (Exception $e) {
     // Report any errors
-		// $message = 'Unable to add park to the database: ' . $e->getMessage();
-		$message = 'Unable to add park to the database: Duplicate Entry';
+		$message = 'Duplicate Entry:  Unable to add park to the database!';
+	}
+	if ($message == "")
+	{
+		$message = "Successfully Added Park To The Database!";
 	}
 	return $message;
 }
 
-function sanitizeInput ()
+function sanitizeInput () //TODO:  this function is not returning anything..fix
 {
 	Input::escape($_POST['name']);
 	Input::escape($_POST['location']);
@@ -87,58 +88,50 @@ function processForm ($dbc)
 	$errors['count'] = 0;
 	//form was submitted when $_POST is not empty
 	if (!empty($_POST)) {
-		try {
-			if ((Input::setAndNotEmpty('name')) && (Input::setAndNotEmpty('location')) && (Input::setAndNotEmpty('date_established'))
-											&& (Input::setAndNotEmpty('area_in_acres')) && (Input::setAndNotEmpty('description')))
-			{
 				sanitizeInput();
 				try {
 					$name = Input::getString('name');
 				} catch (Exception $e) {
-					$errors['name'] = $e->getMessage();
+					$errors['name'] = 'Park Name: ' . $e->getMessage();
 					$errors['count']++;
 				}
 				try {
 					$location = Input::getString('location');
 				} catch (Exception $e) {
-					$errors['location'] = $e->getMessage();
+					$errors['location'] = 'Park Location: ' . $e->getMessage();
 					$errors['count']++;
 				}
 				try {
 					$date_established = Input::getDate('date_established');
 				} catch (Exception $e) {
-					$errors['date_established'] = $e->getMessage();
+					$errors['date_established'] = 'Date Established: ' . $e->getMessage();
 					$errors['count']++;
 				}
 				try {
-					$area_in_acres = Input::getNumber('area_in_acres', 0, 5000000000.00);
+					$area_in_acres = Input::getNumber('area_in_acres');
 				} catch (Exception $e) {
-					$errors['area_in_acres'] = $e->getMessage();
+					$errors['area_in_acres'] = 'Area In Acres: ' . $e->getMessage();
 					$errors['count']++;
 				}
 				try {
 					$description = Input::getString('description');
 				} catch (Exception $e) {
-					$errors['description'] = $e->getMessage();
+					$errors['description'] = 'Description: ' . $e->getMessage();
 					$errors['count']++;
 				}
 				if ($errors['count'] == 0)
 				{
 					$message = insertPark(trim($name), trim($location), $date_established->format('Y-m-d'), 
 						trim($area_in_acres), trim($description), $dbc);
-					if ($message != "")
+					if ($message == "Duplicate Entry:  Unable to add park to the database!")
 					{
 						$errors['duplicate'] = $message;
 						$errors['count']++;
+					} else {  //"Successfully Added Park To The Database!"
+						$errors['successful'] = $message;
 					}
-				}
+				} 
 			}
-		} catch (Exception $e) {
-			$errors['empty'] = $e->getMessage();
-			$errors['count']++;
-		}
-	}
-	// var_dump($errors);
 	return $errors;
 }
 
@@ -151,8 +144,6 @@ function pageController($dbc){
 	//an invalid page number has been entered
 	if ((!is_numeric($pageNumber)) || ($pageNumber <= 0) || ($pageNumber > $numberOfPages))
 	{
-		// var_dump($pageNumber);
-		// var_dump($numberOfPages);
 		header("location: national_parks.php");
 		die();
 	}
@@ -160,7 +151,6 @@ function pageController($dbc){
 	$previousPage = decreasePage($pageNumber);	
 	$errors = processForm($dbc);
 	$query = updatePageContents($pageNumber, $dbc);
-
 
 	return [
 		'parks' => $query,
@@ -181,6 +171,7 @@ var_dump($errorMessages);
 <html>
 <head>
 	<title> National Parks </title>
+	<link rel="stylesheet" href="../css/national_parks_stylesheet.css">
 </head>
 <body>
 	<h2>National Parks</h2>
@@ -222,36 +213,38 @@ var_dump($errorMessages);
     		<legend>Tell Us About Your Favorite Park</legend>
 			Park Name:<br>
 			<input type="text" name="name" size="50"
-				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['name']; ?>">
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['name']; ?>"
+				class="<?= (!empty($errorMessages['name'])) ? 'highlight-error' : ''; ?>">
+			<?= (!empty($errorMessages['name'])) ? '<-- ' . $errorMessages['name'] : ''; ?>
 			<br>
 			Park Location:<br>
 			<input type="text" name="location" size="50"
-				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['location']; ?>">
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['location']; ?>"
+				class="<?= (!empty($errorMessages['location'])) ? 'highlight-error' : ''; ?>">
+			<?= (!empty($errorMessages['location'])) ? '<-- ' . $errorMessages['location'] : ''; ?>
 			<br>
 			Date Established:<br>
 			<input type="text" name="date_established" size="50"
-				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['date_established']; ?>">
-				<!-- if ((strlen($errorMessages['date_established'])) != 0)
-				{
-
-				} -->
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['date_established']; ?>"
+				class="<?= (!empty($errorMessages['date_established'])) ? 'highlight-error' : ''; ?>">
+			<?= (!empty($errorMessages['date_established'])) ? '<-- ' . $errorMessages['date_established'] : ''; ?>
 			<br>
 			Area In Acres:<br>
 			<input type="text" name="area_in_acres" size="50"
-				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['area_in_acres']; ?>">
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['area_in_acres']; ?>"
+				class="<?= (!empty($errorMessages['area_in_acres'])) ? 'highlight-error' : ''; ?>">
+			<?= (!empty($errorMessages['area_in_acres'])) ? '<-- ' . $errorMessages['area_in_acres'] : ''; ?>
 			<br>
 			Description:<br>
 			<input type="text" name="description" size="50"
-				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['description']; ?>">
+				value="<?= (($errorMessages['count']) == 0) ? "" : $_POST['description']; ?>"
+				class="<?= (!empty($errorMessages['description'])) ? 'highlight-error' : ''; ?>">
+			<?= (!empty($errorMessages['description'])) ? '<-- ' . $errorMessages['description'] : ''; ?>
 			<br>
-			<?php if ($errorMessages['count'] != 0): ?>
-				<?php foreach ($errorMessages as $index => $message): ?>
-					<?php if ($index != 'count'): ?>
-						<h3><?= $message; ?></h3>
-					<?php endif ?>
-				<?php  endforeach ?>
-			<?php  endif ?>
-
+			<h3><?= (isset($errorMessages['successful'])) ? $errorMessages['successful'] : ''; ?></h3>
+			<h3 class="<?= (isset($errorMessages['duplicate'])) ? 'highlight-error' : ''; ?>">
+				<?= (isset($errorMessages['duplicate'])) ? $errorMessages['duplicate'] : ''; ?>
+			</h3>
 			<input type="submit" value="Submit">
 		</fieldset>
 	</form>
@@ -260,5 +253,6 @@ var_dump($errorMessages);
 </html>
 
 <!-- take me to the page of the newest added entry, will have to update contents -->
-
 <!-- limit should not be hard coded -- updatePageContents function-->
+<!-- sanitize input -->
+<!-- whenever there is a post there should be a get instead -->

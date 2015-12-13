@@ -1,5 +1,7 @@
 <?php
 
+class DateRangeException extends Exception { }
+
 class Input
 {
     //checks if an input is empty string or not
@@ -9,7 +11,7 @@ class Input
         {
             return true;
         } else {
-            throw new OutOfRangeException ('Empty Field:  Empty Field Not Allowed!');
+            throw new OutOfRangeException ('Empty Field Not Allowed!');
         }
     }
 
@@ -41,40 +43,54 @@ class Input
         return (self::has($key)) ? ($_REQUEST[$key]) : NULL;
     }
 
-    //9.3.1
-    public static function getDate($key)
+    public static function getDate($key, $min = 'January 1, 1900', $max = 0)
     {
         $inputValue = self::get($key);
-        try {
-            $dateTimeObject = new DateTime($inputValue);
-        } catch (Exception $e) {
-            throw new DomainException ('Date Established:  Invalid Date!');
+        if ($max == 0)
+        {
+            $max = date("Y-m-d");
         }
-        return $dateTimeObject;
+        try {
+            $inputDateObject = new DateTime($inputValue);
+        } catch (Exception $e) {
+            throw new DomainException ("Invalid Date!");
+        }
+
+        $minDateObject = new DateTime($min);
+        $maxDateObject = new DateTime($max);
+        $minDateObjectFormatted = strtotime($minDateObject->format('Y-m-d'));
+        $maxDateObjectFormatted = strtotime($maxDateObject->format('Y-m-d'));
+        $inputDateObjectFormatted = strtotime($inputDateObject->format('Y-m-d'));
+        
+        if (($inputDateObjectFormatted < $minDateObjectFormatted) || ($inputDateObjectFormatted > $maxDateObjectFormatted))
+        {
+            throw new DateRangeException ("Must Be Between January 1, 1900 and today!");
+        }
+        return $inputDateObject;
     }
 
-    public static function getString($key, $min = 1, $max = 50)
+    public static function getString($key, $min = 1, $max = 50  )
     {
         $inputValue = self::get($key);
         if (!is_string($inputValue))
         {
-            throw new InvalidArgumentException ("{$key}:  Expecting A String!");
-        }
-        if ((strlen($inputValue) < $min) || (strlen($inputValue) > $max))
-        {   
-            throw new LengthExpection ("The Supplied String Length Must Be Between 1 and 50 Characters!");
-        }
-        if ($inputValue == "") 
-        {
-            throw new OutOfRangeException ("{$key}:  Empty Field Not Allowed!");
-        }
-        if (($min < 1) || ($max > 50))
-        {
-            throw new RangeException ("Min must be at least 1 and max must be less than 50!");
+            throw new InvalidArgumentException ("Expecting A String!");
         }
         if ((!is_numeric($min)) || (!is_numeric($max)))
         {
-            throw new DomainException ("{$min} and {$max}:  Expecting An Integer!");
+            throw new InvalidArgumentException ("Expecting A Numeric Value!");
+        }
+        if ($inputValue == "") 
+        {
+            throw new OutOfRangeException ("Empty Field Not Allowed!");
+        }
+        if ((strlen($inputValue) < $min) || (strlen($inputValue) > $max))
+        {   
+            throw new LengthException ("The Supplied String Length Must Be Between 1 and 50 Characters!");
+        }
+        if (($min < 1) || ($max > 50))
+        {
+            throw new RangeException ("Out of Range (Expecting A Number Between 1 and 50)!");
         }
         return ($inputValue);
     }
@@ -82,22 +98,21 @@ class Input
     public static function getNumber($key, $min = 0, $max = 3800000000.00)
     {
         $inputValue = trim(self::get($key));
-        if (!is_numeric($inputValue)) {
-            throw new DomainException ("Area In Acres: Expecting A Number!");
-        }
         if ((!is_numeric($min)) || (!is_numeric($max)))
         {
-            throw new InvalidArgumentException ("{$min} and {$max}:  Expecting An Integer!");
+            throw new InvalidArgumentException ("Expecting A Numeric Value!");
         }
         if ($inputValue == "") 
         {
-            throw new OutOfRangeException ("{$key}:  Empty Field Not Allowed!");
+            throw new OutOfRangeException ("Empty Field Not Allowed!");
         }
-        if (($inputValue < $min) || ($inputValue > $max))//test this case
+        if (!is_numeric($inputValue)) {
+            throw new DomainException ("Expecting A Numeric Value!");
+        }
+        if (($inputValue < $min) || ($inputValue > $max))
         {
-            throw new RangeException ("Min must be at least 0 and max must be less than 3.8 million!");
+            throw new RangeException ("Out Of Range (Expecting A Number Between 0 and 3.8 billion)!");
         }
-
         return floatval($inputValue);
     }
 
